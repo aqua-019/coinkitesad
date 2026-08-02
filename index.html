@@ -623,6 +623,8 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
 .pool-balance__bar .seg.b{background:linear-gradient(90deg,#5a86b8,var(--sky));justify-content:flex-end;padding-right:.7rem}
 .pool-balance__bar .divider{position:absolute;top:0;bottom:0;width:2px;background:var(--role-ground);opacity:.6}
 @media (prefers-reduced-motion:no-preference){ .pool-balance__bar .divider{transition:left .7s var(--ease-out-quart)} }
+.pool-refresh{position:relative;z-index:1;display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.08em;text-transform:uppercase;color:var(--role-ink-3)}
+.pool-refresh #poolCountdown,.pool-refresh #poolUpdated{color:var(--role-ink-2)}
 .pool-svg .area{opacity:.14}
 .pool-svg .dotlabel{font-family:var(--font-mono);font-size:10px;fill:var(--clay);font-weight:600}
 .pool-svg .livedotlabel{font-family:var(--font-mono);font-size:9px;fill:var(--role-ink-3)}
@@ -910,8 +912,9 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
           <div><span class="k">Pooled supply</span><span class="v tabular skel" id="pmPooled">—</span></div>
           <div><span class="k">1 SOL buys</span><span class="v tabular skel" id="pmRate">—</span></div>
         </div>
+        <div class="pool-refresh"><span class="pulse" aria-hidden="true"></span>pool snapshot · updated <span id="poolUpdated">—</span> · next refresh in <span id="poolCountdown">15:00</span></div>
       </div>
-      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">Live reserves from the pumpswap pair, re-plotted on every refresh. The TOKEN:SOL bar and metrics above the fold update with the pool. Drag the marker (or use the steppers — they're the keyboard path) to simulate a buy or sell against the real constant-product curve and watch the price impact. Simulations stay in your browser. Obviously.</p>
+      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">The pool reserves, TOKEN:SOL bar and metrics refresh on a fixed <strong>15-minute</strong> snapshot (the countdown above shows the next one). Drag the marker (or use the steppers — they're the keyboard path) to simulate a buy or sell against the real constant-product curve and watch the price impact. Simulations stay in your browser. Obviously.</p>
     </div>
   </section>
 
@@ -1279,7 +1282,7 @@ function market(){
     var u=$("#mUpdated");if(u)u.textContent="updated "+new Date().toLocaleTimeString("en-US",{hour12:false});
     var ring=$("#swapRing");if(ring&&motionOK){ring.classList.remove("run");void ring.getBBox&&ring.getBoundingClientRect();ring.classList.add("run")}
     swapCompute();
-    poolUpdate();
+    if(!pool.built)poolTick(); /* first build only; steady state on the 15-min cadence */
     mktFails=0;
   })
   .catch(function(){
@@ -1337,6 +1340,11 @@ function ticker(){
     $$("#feedBody td.age[data-ts]").forEach(function(td){
       td.textContent=timeAgo(parseInt(td.getAttribute("data-ts"),10));
     });
+    if(poolLastTs){
+      var rem=Math.max(0,POOL_INTERVAL-(Date.now()-poolLastTs));
+      var mm=Math.floor(rem/60000),ss=Math.floor((rem%60000)/1000);
+      var c=$("#poolCountdown");if(c)c.textContent=(mm<10?"0":"")+mm+":"+(ss<10?"0":"")+ss;
+    }
   },1000);
 }
 
@@ -1393,6 +1401,7 @@ function swapWire(){
 
 /* ---------- the pool set-piece (D3058-family: one per site) ---------- */
 var pool={x:null,y:null,simX:null,W:560,H:340,ML:52,MR:18,MT:26,MB:40,built:false};
+var poolLastTs=null;
 function poolScales(){
   var xMax=pool.x*3.2, yMax=(pool.x*pool.y)/(pool.x*0.28);
   return {
@@ -1502,6 +1511,15 @@ function updatePoolLive(){
   setStat("#pmK",fmtCompact(k));
   setStat("#pmRate",fmtCompact(1/live.priceNative)+'<span class="unit">/SOL</span>');
   if(live.supply)setStat("#pmPooled",(pool.y/live.supply*100).toFixed(1)+'<span class="unit">%</span>');
+}
+/* dedicated 15-minute pool refresh — samples the latest reserves on a fixed cadence */
+var POOL_INTERVAL=900000; /* 15 minutes */
+function stampPool(){var u=$("#poolUpdated");if(u)u.textContent=new Date().toLocaleTimeString("en-US",{hour12:false});}
+function poolTick(){
+  if(!live.resBase||!live.resQuote)return;
+  if(!pool.built){poolBuild()}else{poolUpdate()}
+  poolLastTs=Date.now();
+  stampPool();
 }
 function poolWire(){
   if(pool.wired)return;pool.wired=true;
@@ -1874,7 +1892,8 @@ function boot(){
   market();setInterval(market,30000);
   supply();setInterval(supply,60000);
   feed();setInterval(feed,12000);
-  document.addEventListener("visibilitychange",function(){if(!document.hidden){market();feed();btcPrice()}});
+  setInterval(poolTick,POOL_INTERVAL); /* liquidity pool refreshes every 15 minutes */
+  document.addEventListener("visibilitychange",function(){if(!document.hidden){market();feed();btcPrice();if(poolLastTs&&Date.now()-poolLastTs>=POOL_INTERVAL)poolTick()}});
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",boot)}else{boot()}
 })();
