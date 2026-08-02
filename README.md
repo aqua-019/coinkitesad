@@ -15,14 +15,35 @@ Vercel → Add New Project → Import this repo → Framework preset: **Other** 
 One static file, zero build step, zero config. Live data hydrates client-side from the
 DexScreener API and public Solana RPC.
 
+## Sections
+
+- **Live market** — price, mcap/FDV, liquidity, 24h volume, buy/sell flow, 1h/6h/24h
+  deltas, pool reserves, turnover, live on-chain supply, activity buckets, ticking pair
+  age, a reconstructed trend sparkline, and the burn record (1B of 2B minted).
+- **Swap console** — terminal-styled, computes quotes in-browser from live pool reserves
+  (constant-product), estimates price impact, settles on Jupiter / pump.fun. No wallet
+  connection, ever.
+- **Liquidity pool** — the x·y=k hyperbola drawn from live reserves; drag the marker (or
+  use the steppers / arrow keys) to simulate buys and sells and watch price impact.
+- **Flow monitor** — live transaction feed with side (buy/sell), token, SOL and USD
+  amounts parsed from each tx's balance deltas.
+- **Entropy ceremony** — roll a 3D die powered by the browser CSPRNG; rolls stack into a
+  grid and deterministically derive a demo recovery phrase. A novelty — never secure real
+  funds with a phrase from a website.
+
+Chart source is switchable (DexScreener / GeckoTerminal / Jupiter) in case an embed is
+blocked.
+
 ## Design
 
 Built from the Design Variable Catalogue 3000 — Category 41 (*The Anthropic Reference
 System*, D3001–D3075) plus the S-tier working set: ivory ground, one clay accent,
 class-scoped theme inversion, named-line breakout grid, two-point clamp type scale,
 four easing tokens, colour-only hovers, 0fr→1fr disclosures, hover-paused 48s number
-belt, FOUC-guarded word reveal, copy-confirm morph, live-region announcements,
-reduced-motion parity per component.
+belt, FOUC-guarded word reveal, scroll-reveal choreography, magnetic CTA, the pool
+set-piece (D3058-family: draggable, pre-bloom gated, bounded steppers, bobbing hint,
+giant serif landmark), copy-confirm morph, live-region announcements, reduced-motion
+parity per component.
 
 ## Disclaimer
 
