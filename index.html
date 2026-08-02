@@ -587,6 +587,66 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
 .dice-warn{margin-top:1.2rem;display:flex;gap:.7rem;align-items:flex-start;background:rgba(191,77,67,.08);box-shadow:inset 0 0 0 1px rgba(191,77,67,.3);border-radius:var(--r-12);padding:.9rem 1.1rem;font-size:var(--caption);color:var(--role-ink-2);text-wrap:pretty}
 .dice-warn b{color:var(--err)}
 .dice-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem;align-items:center}
+/* dice ledger — numbers → words, below the button */
+.dice-ledger{position:relative;z-index:1;width:100%;margin-top:.4rem;display:flex;flex-direction:column;gap:.5rem}
+.dice-ledger__lab{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-500);text-align:center}
+.dice-ledger__list{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;max-height:118px;overflow-y:auto;padding:.1rem}
+.ledger-chip{display:inline-flex;align-items:center;gap:.4rem;background:rgba(245,244,237,.05);box-shadow:inset 0 0 0 1px rgba(245,244,237,.12);border-radius:var(--r-max);padding:.28rem .5rem .28rem .35rem;font-family:var(--font-mono);font-size:11px}
+.ledger-chip.pending{opacity:.6;border-style:dashed}
+.ledger-chip .dice{display:inline-flex;gap:2px}
+.ledger-chip .dice b{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:3px;background:var(--slate-050);color:var(--slate-950);font-weight:600;font-size:9px}
+.ledger-chip .arw{color:var(--slate-500)}
+.ledger-chip .wd{color:var(--clay);font-weight:500;letter-spacing:.01em}
+@media (prefers-reduced-motion:no-preference){ .ledger-chip.pop{animation:cellpop .45s var(--ease-out-quart)} }
+/* phrase cell with its dice */
+.pw .dice-src{position:absolute;top:.35rem;right:.5rem;display:inline-flex;gap:2px}
+.pw .dice-src b{width:12px;height:12px;border-radius:2px;background:rgba(245,244,237,.14);color:var(--slate-200);font-size:8px;display:inline-flex;align-items:center;justify-content:center;font-weight:600}
+
+/* ---------- pool · higher-fidelity additions ---------- */
+.pool-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.5rem),1fr));gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);border-radius:var(--r-12);overflow:hidden;margin-top:1.2rem;position:relative;z-index:1}
+.pool-metrics > div{background:var(--role-ground);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.3rem}
+.pool-metrics .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--role-ink-3)}
+.pool-metrics .v{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;line-height:1;letter-spacing:-.01em}
+.pool-metrics .v .unit{font-size:.55em;font-weight:500;color:var(--role-ink-3);margin-left:.15em}
+/* live TOKEN:SOL balance bar */
+.pool-balance{position:relative;z-index:1;margin-top:1.3rem}
+.pool-balance__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;font-family:var(--font-mono);font-size:var(--caption);margin-bottom:.5rem;flex-wrap:wrap}
+.pool-balance__head .side{display:flex;flex-direction:column;gap:.15rem}
+.pool-balance__head .side.right{text-align:right}
+.pool-balance__head .amt{font-size:var(--body-1);font-weight:600;color:var(--role-ink)}
+.pool-balance__head .amt .sw{display:inline-block;width:.55em;height:.55em;border-radius:2px;margin-right:.4em;vertical-align:baseline}
+.pool-balance__head .usd{color:var(--role-ink-3)}
+.pool-balance__head .mid{align-self:center;text-align:center;color:var(--role-ink-3);font-size:var(--agate);letter-spacing:.08em}
+.pool-balance__bar{position:relative;display:flex;height:30px;border-radius:var(--r-8);overflow:hidden;box-shadow:inset 0 0 0 1px var(--role-hairline)}
+.pool-balance__bar .seg{display:flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:#fff;transition:width .7s var(--ease-out-quart);min-width:0;overflow:hidden;white-space:nowrap}
+.pool-balance__bar .seg.a{background:linear-gradient(90deg,var(--clay),var(--clay-deep));justify-content:flex-start;padding-left:.7rem}
+.pool-balance__bar .seg.b{background:linear-gradient(90deg,#5a86b8,var(--sky));justify-content:flex-end;padding-right:.7rem}
+.pool-balance__bar .divider{position:absolute;top:0;bottom:0;width:2px;background:var(--role-ground);opacity:.6}
+@media (prefers-reduced-motion:no-preference){ .pool-balance__bar .divider{transition:left .7s var(--ease-out-quart)} }
+.pool-svg .area{opacity:.14}
+.pool-svg .dotlabel{font-family:var(--font-mono);font-size:10px;fill:var(--clay);font-weight:600}
+.pool-svg .livedotlabel{font-family:var(--font-mono);font-size:9px;fill:var(--role-ink-3)}
+
+/* ---------- swap · horizontal / centered redesign ---------- */
+.swap-intro{max-width:60ch;margin:var(--space-small) auto 0;text-align:center;text-wrap:pretty}
+.swap-intro .lede{font-size:var(--headline-3);line-height:var(--lh-140)}
+.swap-intro p{margin:.9rem auto 0;color:var(--role-ink-2)}
+.section--center h2{margin-inline:auto}
+.console--wide{max-width:960px;margin:var(--space-main) auto 0}
+.console--wide .console__io{grid-template-columns:1fr auto 1fr;gap:1rem;margin-block:1rem}
+@media (min-width:768px){ .console--wide .console__io .io-box{padding:1.15rem 1.35rem} .console--wide .io-box input,.console--wide .io-box .out{font-size:1.7rem} }
+.console--wide .console__meta{justify-content:center;gap:.5rem 2rem;padding:.5rem 0}
+.console--wide .console__actions{justify-content:center}
+.console__boot{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;justify-content:center;padding-bottom:.4rem;border-bottom:1px solid var(--role-hairline);margin-bottom:.4rem}
+.console__boot .console__line{min-height:0}
+.console__foot{text-align:center;max-width:64ch;margin:.6rem auto 0}
+
+/* ---------- incident · live refresh ---------- */
+.incident-live{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.4rem;margin-bottom:var(--space-medium);font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.08em;text-transform:uppercase;color:var(--role-ink-3)}
+.incident-live .live-usd{color:var(--role-loss);font-weight:600}
+.incident-live .btc-px{color:var(--role-ink-2)}
+.incident-live .pulse{background:var(--role-loss)}
+.tile .v .climb{font-size:.5em;font-weight:600;color:var(--role-loss);margin-left:.3em;letter-spacing:.05em;vertical-align:middle}
 </style>
 </head>
 <body>
@@ -707,15 +767,21 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
 
   <section class="section breakout" id="incident">
     <div>
-      <p class="eyebrow"><span class="idx">03</span><span>Incident metrics · as reported</span></p>
+      <p class="eyebrow"><span class="idx">03</span><span>Incident metrics · as reported · ongoing</span></p>
       <h2 class="headline-1 trim-sans" style="max-width:22ch" data-reveal>Quarterly highlights, involuntary edition.</h2>
-      <div class="tiles" style="margin-top:var(--space-medium)" data-reveal-stagger>
-        <div class="tile tile--alarm"><span class="k">BTC relocated</span><span class="v tabular">1,082.65</span><span class="s">July 30, 2026 · one operator, briskly</span></div>
-        <div class="tile tile--alarm"><span class="k">Duration</span><span class="v tabular">41<span class="unit">min</span></span><span class="s">start to finish · no keys harmed</span></div>
-        <div class="tile"><span class="k">Addresses swept</span><span class="v tabular">1,196</span><span class="s">derived offline, matched on-chain</span></div>
+      <div class="incident-live" data-reveal>
+        <span class="state" style="display:inline-flex;align-items:center;gap:.5rem"><span class="pulse" aria-hidden="true"></span>attack ongoing</span>
+        <span>≈ <span class="live-usd" id="incUsd">$86M</span> at BTC <span class="btc-px" id="incBtcPx">$63,000</span></span>
+        <span id="incAsOf">as of Aug 2, 2026 · 05:30 EDT</span>
+        <span>figures still climbing</span>
+      </div>
+      <div class="tiles" style="margin-top:var(--space-small)" data-reveal-stagger>
+        <div class="tile tile--alarm"><span class="k">BTC relocated</span><span class="v tabular" id="incBtc">1,367.05<span class="climb">▲ climbing</span></span><span class="s" id="incBtcSub">across three waves · one operator</span></div>
+        <div class="tile tile--alarm"><span class="k">Addresses swept</span><span class="v tabular" id="incAddr">4,585</span><span class="s">derived offline, matched on-chain</span></div>
+        <div class="tile"><span class="k">Held, unspent</span><span class="v tabular" id="incUnspent">100<span class="unit">%</span></span><span class="s">the attacker is consolidating, not cashing out</span></div>
         <div class="tile"><span class="k">Advertised keyspace</span><span class="v tabular">2<span class="unit" style="vertical-align:super;font-size:.5em">256</span></span><span class="s">effective, for some wallets: nearer 2⁴⁰ – 2⁷²</span></div>
       </div>
-      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">Figures per third-party reporting and researcher analysis (see Evidence). The affected devices, versions and remediation steps are documented by the vendor; patched firmware cannot repair an already-weak seed. If any of this concerns you personally: stop reading meme sites and go move your coins.</p>
+      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">Counts load from <span class="mono">incident.json</span> (re-verified against reporting on a schedule); the dollar figure updates live against the Bitcoin price. This is an <strong>ongoing</strong> event — totals have only gone up. Vendor remediation is documented, but patched firmware cannot repair an already-weak seed. If any of this touches you personally: close this meme site and go move your coins.</p>
     </div>
   </section>
 
@@ -751,18 +817,18 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
         <div class="tile"><span class="k">Activity</span><span class="v tabular skel" id="mAct">—</span><span class="s" id="mActSub">m5 — · h1 — · h6 —</span></div>
         <div class="tile"><span class="k">Pair age</span><span class="v tabular skel" id="mAge">—</span><span class="s">counting since the pumpswap pool opened</span></div>
         <div class="tile"><span class="k">Trend · reconstructed</span><svg class="spark" id="mSpark" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cb380"/><stop offset="1" stop-color="#9cb380" stop-opacity="0"/></linearGradient></defs><path class="fill" d=""/><path class="line" d=""/></svg><span class="s">from Δ buckets: −24h · −6h · −1h · −5m · now</span></div>
-        <div class="tile"><span class="k">Share of 2²⁵⁶</span><span class="v tabular" style="font-size:var(--body-2);line-height:var(--lh-140)">0.000000000000000000000000000000000000000000000000000000000000000000000106%</span><span class="s">of the keyspace, if market cap were keys. room to grow.</span></div>
+        <div class="tile"><span class="k">Share of 2²⁵⁶</span><span class="v tabular" title="0.000000000000000000000000000000000000000000000000000000000000000000000106%">≈ 1.06 × 10⁻⁷¹%</span><span class="s">of the keyspace, if market cap were keys. a decimal point and seventy zeros. room to grow.</span></div>
       </div>
       <div class="chart-frame" style="margin-top:var(--space-medium)" data-reveal>
         <div class="chart-tabs" role="tablist" aria-label="Chart source">
-          <button role="tab" aria-selected="true" data-chart="dex">DexScreener</button>
-          <button role="tab" aria-selected="false" data-chart="gecko">GeckoTerminal</button>
+          <button role="tab" aria-selected="true" data-chart="gecko">GeckoTerminal</button>
+          <button role="tab" aria-selected="false" data-chart="dex">DexScreener</button>
           <button role="tab" aria-selected="false" data-chart="jup">Jupiter ↗</button>
         </div>
         <div class="chart-frame__bar"><span class="pulse" aria-hidden="true"></span><span>COINKITE / SOL · pumpswap</span><span style="margin-left:auto">CW959iWe…UeBmvV</span></div>
         <div class="chart-embed pending" id="chartEmbed">
           <div class="chart-embed__load"><span class="pulse" aria-hidden="true"></span>loading chart… if it hangs, try another source above</div>
-          <iframe id="chartFrame" title="Live price chart for COINKITE" src="https://dexscreener.com/solana/cw959iwe22ev8rvfmxrkeqexowuoo8v4bhmpjkuebmvv?embed=1&theme=dark&trades=0&info=0" loading="lazy" allow="clipboard-write"></iframe>
+          <iframe id="chartFrame" title="Live price chart for COINKITE" src="https://www.geckoterminal.com/solana/pools/CW959iWe22eV8rVfMxRkeqexoWuoo8V4bHmpjkUeBmvV?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=15m" loading="lazy" allow="clipboard-write"></iframe>
         </div>
       </div>
       <p class="caption" style="margin-top:.7rem">Chart won't load? Some content blockers reject embeds on principle. Switch source above, or open <a href="https://dexscreener.com/solana/cw959iwe22ev8rvfmxrkeqexowuoo8v4bhmpjkuebmvv" target="_blank" rel="noopener">DexScreener <span class="nudge">↗</span></a> · <a href="https://jup.ag/tokens/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Jupiter <span class="nudge">↗</span></a> directly.</p>
@@ -774,42 +840,42 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
     </div>
   </section>
 
-  <section class="section breakout" id="swap" style="padding-top:0">
+  <section class="section breakout section--center" id="swap" style="padding-top:0">
     <div>
-      <p class="eyebrow"><span class="idx">06</span><span>Swap console · simulated locally, settles elsewhere</span></p>
-      <h2 class="headline-2 trim-sans" style="max-width:26ch" data-reveal>The console. No wallet attached. No seed requested. Ever.</h2>
-      <div class="duo" style="margin-top:var(--space-medium)">
-        <div class="console" data-reveal id="swapConsole">
-          <div class="console__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>coinkite swap console v2.56</span><span style="margin-left:auto" id="swapNet">solana · pumpswap</span></div>
-          <div class="console__body">
-            <p class="console__line" data-boot><span class="p">&gt;</span> init entropy .......... <span class="ok">HARDWARE — verified, this time</span></p>
-            <p class="console__line" data-boot><span class="p">&gt;</span> route ................. SOL → WSOL → $115792 <span class="dim">via pumpswap</span></p>
-            <p class="console__line" data-boot><span class="p">&gt;</span> slippage .............. <span class="dim">50 fair dice rolls</span></p>
-            <div class="console__io">
-              <div class="io-box">
-                <span class="lab">You give</span>
-                <span class="tok"><input type="number" id="swapIn" inputmode="decimal" min="0" step="0.01" value="0.1" aria-label="Amount of SOL to swap"><span class="sym">SOL</span></span>
-                <span class="usd" id="swapInUsd">≈ $—</span>
-              </div>
-              <div class="io-arrow" aria-hidden="true">→</div>
-              <div class="io-box">
-                <span class="lab">You receive · est.</span>
-                <span class="out tabular" id="swapOut">—</span>
-                <span class="usd"><span class="sym">$115792</span> <span id="swapOutUsd">≈ $—</span></span>
-              </div>
-            </div>
-            <p class="console__meta"><span id="swapRate">rate —</span><span class="impact" id="swapImpact">impact —</span><span class="dim">fees: the pool's business</span></p>
-            <div class="console__actions">
-              <a class="btn btn-primary magnet" id="swapExec" href="https://jup.ag/swap/SOL-FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Execute on Jupiter <span class="nudge">↗</span></a>
-              <a class="btn btn-secondary" href="https://pump.fun/coin/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">or pump.fun <span class="nudge">↗</span></a>
-              <span class="console__meta" style="align-items:center;display:inline-flex;gap:.5rem"><svg class="ring" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5"/><circle class="arc" id="swapRing" cx="6" cy="6" r="5"/></svg><span class="dim" id="swapQuoteAge">quote refreshes with the market · 30s</span></span>
-            </div>
-            <p class="console__line" style="margin-top:.4rem"><span class="p">&gt;</span> <span class="dim">this console is a visualization. amounts are estimates from live reserves. the button opens Jupiter; your keys remain yours, which is the entire point of this website.</span><span class="caret" aria-hidden="true"></span></p>
+      <p class="eyebrow" style="justify-content:center"><span class="idx">06</span><span>Swap console · simulated locally, settles elsewhere</span></p>
+      <h2 class="headline-2 trim-sans" style="max-width:24ch;text-align:center;margin-inline:auto" data-reveal>The console. No wallet attached. No seed requested. Ever.</h2>
+      <div class="swap-intro" data-reveal>
+        <p class="lede">A swap interface that cannot touch your funds — rendered in loving memory of interfaces that could.</p>
+        <p class="body-2">Quotes are computed in your browser from the live pool reserves: constant-product arithmetic, no oracle, no middleman, no March-2021 firmware anywhere in the pipeline. Execution happens on Jupiter or pump.fun under your own wallet's supervision. We never ask for a connection — we wouldn't know what to do with one.</p>
+      </div>
+      <div class="console console--wide" data-reveal id="swapConsole">
+        <div class="console__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>coinkite swap console v2.56</span><span style="margin-left:auto" id="swapNet">solana · pumpswap</span></div>
+        <div class="console__body">
+          <div class="console__boot">
+            <p class="console__line" data-boot><span class="p">&gt;</span> entropy <span class="ok">HARDWARE ✓</span></p>
+            <p class="console__line" data-boot><span class="p">&gt;</span> route <span class="dim">SOL → WSOL → $115792</span></p>
+            <p class="console__line" data-boot><span class="p">&gt;</span> slippage <span class="dim">50 fair dice rolls</span></p>
           </div>
-        </div>
-        <div class="prose">
-          <p class="lede">A swap interface that cannot touch your funds, rendered in loving memory of interfaces that could.</p>
-          <p class="body-2" style="color:var(--role-ink-2)">Quotes are computed in your browser from the live pool reserves — constant-product arithmetic, no oracle, no middleman, no March-2021 firmware anywhere in the pipeline. When you're ready, execution happens on Jupiter or pump.fun under your own wallet's supervision. We never ask for a connection. We wouldn't know what to do with one.</p>
+          <div class="console__io">
+            <div class="io-box">
+              <span class="lab">You give</span>
+              <span class="tok"><input type="number" id="swapIn" inputmode="decimal" min="0" step="0.01" value="0.1" aria-label="Amount of SOL to swap"><span class="sym">SOL</span></span>
+              <span class="usd" id="swapInUsd">≈ $—</span>
+            </div>
+            <div class="io-arrow" aria-hidden="true">→</div>
+            <div class="io-box">
+              <span class="lab">You receive · est.</span>
+              <span class="out tabular" id="swapOut">—</span>
+              <span class="usd"><span class="sym">$115792</span> <span id="swapOutUsd">≈ $—</span></span>
+            </div>
+          </div>
+          <p class="console__meta"><span id="swapRate">rate —</span><span class="impact" id="swapImpact">impact —</span><span class="dim">fees: the pool's business</span></p>
+          <div class="console__actions">
+            <a class="btn btn-primary magnet" id="swapExec" href="https://jup.ag/swap/SOL-FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Execute on Jupiter <span class="nudge">↗</span></a>
+            <a class="btn btn-secondary" href="https://pump.fun/coin/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">or pump.fun <span class="nudge">↗</span></a>
+            <span class="console__meta" style="align-items:center;display:inline-flex;gap:.5rem"><svg class="ring" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5"/><circle class="arc" id="swapRing" cx="6" cy="6" r="5"/></svg><span class="dim" id="swapQuoteAge">quote refreshes with the market · 30s</span></span>
+          </div>
+          <p class="console__line console__foot"><span class="p">&gt;</span> <span class="dim">this console is a visualization. amounts are estimates from live reserves. the button opens Jupiter; your keys remain yours, which is the entire point of this website.</span><span class="caret" aria-hidden="true"></span></p>
         </div>
       </div>
     </div>
@@ -818,7 +884,7 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
   <section class="section breakout" id="pool" style="padding-top:0">
     <div>
       <p class="eyebrow"><span class="idx">07</span><span>The pool · x·y = k, observed live</span></p>
-      <h2 class="headline-2 trim-sans" style="max-width:26ch" data-reveal>One hyperbola holds the whole thing together.</h2>
+      <h2 class="headline-2 trim-sans" style="max-width:26ch;margin-bottom:var(--space-medium)" data-reveal>One hyperbola holds the whole thing together.</h2>
       <div class="pool-stage" data-reveal data-bloom="0" id="poolStage">
         <span class="pool-word" aria-hidden="true">liquidity</span>
         <span class="pool-hint" id="poolHint"><span class="bob" aria-hidden="true">↕</span> drag the dot · simulate a trade</span>
@@ -829,10 +895,23 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
         </div>
         <svg class="pool-svg" id="poolSvg" viewBox="0 0 560 340" role="img" aria-label="Constant product curve of the live liquidity pool. Drag the marker to simulate trades."></svg>
         <div class="pool-readout tabular" id="poolReadout"><span>loading reserves…</span></div>
-        <div class="pool-split" aria-hidden="true"><span class="a" id="poolSplitA" style="width:50%"></span><span class="b" id="poolSplitB" style="width:50%"></span></div>
-        <div class="pool-legend"><span><span class="sw" style="background:var(--clay)"></span><span id="poolLegA">$115792 side — —</span></span><span><span class="sw" style="background:var(--sky)"></span><span id="poolLegB">SOL side — —</span></span><span id="poolK">k = —</span></div>
+        <div class="pool-balance">
+          <div class="pool-balance__head">
+            <span class="side"><span class="amt"><span class="sw" style="background:var(--clay)"></span><span id="balTok">—</span> $115792</span><span class="usd" id="balTokUsd">— in pool</span></span>
+            <span class="mid" id="balRatio">— per SOL</span>
+            <span class="side right"><span class="amt"><span class="sw" style="background:var(--sky)"></span><span id="balSol">—</span> SOL</span><span class="usd" id="balSolUsd">— in pool</span></span>
+          </div>
+          <div class="pool-balance__bar" aria-hidden="true"><span class="seg a" id="balSegA"><span id="balSegAp"></span></span><span class="seg b" id="balSegB"><span id="balSegBp"></span></span><span class="divider" id="balDiv" style="left:50%"></span></div>
+        </div>
+        <div class="pool-metrics" id="poolMetrics">
+          <div><span class="k">Liquidity · total</span><span class="v tabular skel" id="pmLiq">—</span></div>
+          <div><span class="k">Price</span><span class="v tabular skel" id="pmPrice">—</span></div>
+          <div><span class="k">Constant · k</span><span class="v tabular skel" id="pmK">—</span></div>
+          <div><span class="k">Pooled supply</span><span class="v tabular skel" id="pmPooled">—</span></div>
+          <div><span class="k">1 SOL buys</span><span class="v tabular skel" id="pmRate">—</span></div>
+        </div>
       </div>
-      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">Live reserves from the pumpswap pair, re-plotted on every refresh. Drag the marker (or use the steppers — they're the keyboard path) to simulate a buy or sell against the real constant-product curve and watch the price impact. Simulations stay in your browser. Obviously.</p>
+      <p class="caption" style="margin-top:1rem;max-width:var(--measure)">Live reserves from the pumpswap pair, re-plotted on every refresh. The TOKEN:SOL bar and metrics above the fold update with the pool. Drag the marker (or use the steppers — they're the keyboard path) to simulate a buy or sell against the real constant-product curve and watch the price impact. Simulations stay in your browser. Obviously.</p>
     </div>
   </section>
 
@@ -886,7 +965,11 @@ a:hover .nudge,.btn:hover .nudge{transform:translate(2px,-2px)}
         <p class="dice-status" id="diceStatus" role="status" aria-live="polite">0 rolls · 0 bits · the firmware managed ~40–72</p>
         <div class="dice-meter" aria-hidden="true">
           <div class="dice-meter__bar"><span class="dice-meter__fill" id="diceFill"></span></div>
-          <div class="dice-meter__ticks"><span style="left:28%">firmware</span><span style="left:50%">12 words</span><span style="left:100%">24 words</span></div>
+          <div class="dice-meter__ticks"><span style="left:29%">firmware</span><span style="left:50%">12 words</span><span style="left:100%">24 words</span></div>
+        </div>
+        <div class="dice-ledger" id="diceLedger">
+          <div class="dice-ledger__lab">every four rolls → one word</div>
+          <div class="dice-ledger__list" id="diceLedgerList"></div>
         </div>
       </div>
 
@@ -1324,33 +1407,40 @@ function poolBuild(){
   pool.x=live.resQuote;pool.y=live.resBase;
   if(pool.simX==null)pool.simX=pool.x;
   var s=poolScales(),k=pool.x*pool.y;
-  var d="";
-  for(var i=0;i<=72;i++){
-    var xv=pool.x*0.3+(pool.x*3.2-pool.x*0.3)*(i/72);
+  var d="",firstX=null,lastX=null,axisY=pool.H-pool.MB;
+  for(var i=0;i<=80;i++){
+    var xv=pool.x*0.3+(pool.x*3.2-pool.x*0.3)*(i/80);
     var yv=k/xv;
     var X=s.px(xv),Y=s.py(yv);
     if(Y<pool.MT-2)continue;
+    if(firstX==null)firstX=X;lastX=X;
     d+=(d?" L":"M")+X.toFixed(1)+" "+Y.toFixed(1);
   }
+  var area=d+" L"+lastX.toFixed(1)+" "+axisY+" L"+firstX.toFixed(1)+" "+axisY+" Z";
   svg.innerHTML=
-    '<line class="axis" x1="'+pool.ML+'" y1="'+(pool.H-pool.MB)+'" x2="'+(pool.W-pool.MR)+'" y2="'+(pool.H-pool.MB)+'"/>'+
-    '<line class="axis" x1="'+pool.ML+'" y1="'+pool.MT+'" x2="'+pool.ML+'" y2="'+(pool.H-pool.MB)+'"/>'+
+    '<defs><linearGradient id="poolAreaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d97757" stop-opacity=".85"/><stop offset="1" stop-color="#d97757" stop-opacity="0"/></linearGradient></defs>'+
+    '<line class="axis" x1="'+pool.ML+'" y1="'+axisY+'" x2="'+(pool.W-pool.MR)+'" y2="'+axisY+'"/>'+
+    '<line class="axis" x1="'+pool.ML+'" y1="'+pool.MT+'" x2="'+pool.ML+'" y2="'+axisY+'"/>'+
     '<text class="alabel" x="'+(pool.W-pool.MR)+'" y="'+(pool.H-12)+'" text-anchor="end">SOL reserve →</text>'+
     '<text class="alabel" x="'+pool.ML+'" y="'+(pool.MT-9)+'">$115792 reserve ↑</text>'+
-    '<text class="klabel" x="'+(pool.W-pool.MR-4)+'" y="'+(pool.MT+16)+'" text-anchor="end">x·y = k — a large number, considerably more fragile than ours</text>'+
+    '<path class="area" fill="url(#poolAreaGrad)" d="'+area+'"/>'+
     '<line class="gridline" id="poolGX" x1="0" y1="0" x2="0" y2="0"/>'+
     '<line class="gridline" id="poolGY" x1="0" y1="0" x2="0" y2="0"/>'+
     '<line class="cross" id="poolCX" x1="0" y1="0" x2="0" y2="0"/>'+
     '<line class="cross" id="poolCY" x1="0" y1="0" x2="0" y2="0"/>'+
     '<path class="curve" id="poolCurve" d="'+d+'"/>'+
+    '<text class="klabel" x="'+(pool.ML+12)+'" y="'+(axisY-12)+'">x·y = k · a large number, far more fragile than ours</text>'+
     '<circle id="poolLiveDot" r="4" fill="none" stroke="#87867f" stroke-width="1.5" stroke-dasharray="2 2" cx="0" cy="0"/>'+
+    '<text class="livedotlabel" id="poolLiveLabel" x="0" y="0">live</text>'+
     '<g class="pool-dot" id="poolDot" tabindex="0" role="slider" aria-label="Simulated SOL reserve. Arrow keys to trade along the curve." aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">'+
-      '<circle class="halo" r="16" cx="0" cy="0"/><circle class="core" r="6" cx="0" cy="0"/></g>';
+      '<circle class="halo" r="16" cx="0" cy="0"/><circle class="core" r="6" cx="0" cy="0"/></g>'+
+    '<text class="dotlabel" id="poolDotLabel" x="0" y="0" text-anchor="middle"></text>';
   var curve=$("#poolCurve");
   try{var len=curve.getTotalLength();curve.style.setProperty("--clen",len)}catch(e){}
   pool.built=true;
   poolWire();
   poolRender(true);
+  updatePoolLive();
 }
 function poolRender(instant){
   if(!pool.built)return;
@@ -1362,6 +1452,7 @@ function poolRender(instant){
   dot.setAttribute("transform","translate("+X.toFixed(1)+","+Y.toFixed(1)+")");
   dot.setAttribute("aria-valuenow",Math.round((sx/(pool.x*3.2))*100));
   var ld=$("#poolLiveDot");ld.setAttribute("cx",lX.toFixed(1));ld.setAttribute("cy",lY.toFixed(1));
+  var ll=$("#poolLiveLabel");if(ll){ll.setAttribute("x",(lX+8).toFixed(1));ll.setAttribute("y",(lY-8).toFixed(1));}
   var gx=$("#poolGX");gx.setAttribute("x1",X);gx.setAttribute("x2",X);gx.setAttribute("y1",Y);gx.setAttribute("y2",pool.H-pool.MB);
   var gy=$("#poolGY");gy.setAttribute("x1",pool.ML);gy.setAttribute("x2",X);gy.setAttribute("y1",Y);gy.setAttribute("y2",Y);
   /* readout */
@@ -1370,6 +1461,7 @@ function poolRender(instant){
   var spot=pool.x/pool.y, spotAfter=sx/sy;
   var impact=(spotAfter-spot)/spot*100;
   var newUsd=live.priceUsd?live.priceUsd*(1+impact/100):null;
+  var dl=$("#poolDotLabel");if(dl){dl.setAttribute("x",X.toFixed(1));dl.setAttribute("y",(Y-14).toFixed(1));dl.textContent=(Math.abs(dSol)<pool.x*0.004||!newUsd)?"":fmtPrice(newUsd);}
   if(Math.abs(dSol)<pool.x*0.004){
     ro.innerHTML="<span>live reserves: "+fmtCompact(pool.y)+" $115792 · "+pool.x.toLocaleString("en-US",{maximumFractionDigits:3})+" SOL</span><span>spot "+(live.priceUsd?fmtPrice(live.priceUsd):"—")+"</span><span class='dim'>drag to simulate</span>";
   }else if(dSol>0){
@@ -1388,17 +1480,28 @@ function poolRender(instant){
   /* steppers disabled at bounds (D3065) */
   $("#poolMinus").disabled=sx<=pool.x*0.31;
   $("#poolPlus").disabled=sx>=pool.x*3.15;
-  /* composition split + legend */
-  if(live.solUsd){
-    var usdA=pool.y*(live.priceUsd||0),usdB=pool.x*live.solUsd,tot=usdA+usdB;
-    if(tot>0){
-      $("#poolSplitA").style.width=Math.round(usdA/tot*100)+"%";
-      $("#poolSplitB").style.width=(100-Math.round(usdA/tot*100))+"%";
-      $("#poolLegA").textContent="$115792 side — "+fmtCompact(pool.y)+" ("+fmtUsd(usdA)+")";
-      $("#poolLegB").textContent="SOL side — "+pool.x.toLocaleString("en-US",{maximumFractionDigits:3})+" ("+fmtUsd(usdB)+")";
-    }
-  }
-  $("#poolK").textContent="k = "+Math.round(k).toLocaleString("en-US");
+}
+/* live composition bar + metrics — driven by live reserves, not the sim drag */
+function updatePoolLive(){
+  if(!pool.built||!live.priceUsd||!live.solUsd)return;
+  var k=pool.x*pool.y;
+  var usdA=pool.y*live.priceUsd, usdB=pool.x*live.solUsd, tot=usdA+usdB;
+  if(tot<=0)return;
+  var pa=Math.max(2,Math.min(98,Math.round(usdA/tot*100)));
+  var segA=$("#balSegA"),segB=$("#balSegB"),div=$("#balDiv");
+  if(segA){segA.style.width=pa+"%";segB.style.width=(100-pa)+"%";
+    var ap=$("#balSegAp"),bp=$("#balSegBp");if(ap)ap.textContent=pa+"%";if(bp)bp.textContent=(100-pa)+"%";
+    if(div)div.style.left=pa+"%";}
+  var bt=$("#balTok");if(bt)bt.textContent=fmtCompact(pool.y);
+  var bs=$("#balSol");if(bs)bs.textContent=pool.x.toLocaleString("en-US",{maximumFractionDigits:2});
+  var btu=$("#balTokUsd");if(btu)btu.textContent=fmtUsd(usdA)+" in pool";
+  var bsu=$("#balSolUsd");if(bsu)bsu.textContent=fmtUsd(usdB)+" in pool";
+  var br=$("#balRatio");if(br)br.textContent=fmtCompact(pool.y/pool.x)+" $115792 / SOL";
+  setStat("#pmLiq",fmtUsd(tot));
+  setStat("#pmPrice",fmtPrice(live.priceUsd));
+  setStat("#pmK",fmtCompact(k));
+  setStat("#pmRate",fmtCompact(1/live.priceNative)+'<span class="unit">/SOL</span>');
+  if(live.supply)setStat("#pmPooled",(pool.y/live.supply*100).toFixed(1)+'<span class="unit">%</span>');
 }
 function poolWire(){
   if(pool.wired)return;pool.wired=true;
@@ -1457,6 +1560,7 @@ function poolUpdate(){
   }
   var c=$("#poolCurve");if(c)c.setAttribute("d",d);
   poolRender();
+  updatePoolLive();
 }
 
 /* ---------- live tx feed with parsed amounts (D0975 · D0847 · D0642) ---------- */
@@ -1608,10 +1712,11 @@ var WORDS=("abandon ability absorb access acid across action addict adjust admit
 "gadget galaxy gallery game garage garden garlic gate gather gauge general genius gentle genuine gesture ghost "+
 "giant gift ginger giraffe girl give glad glance glass glide globe gloom glory glove goat gold").split(/\s+/);
 
-var diceRolls=[], diceCube=null, diceSpinX=0, diceSpinY=0, MAXROLLS=99, T12=50;
+var diceRolls=[], diceCube=null, diceInnerX=0, diceInnerY=0, spinCount=0;
+var MAXROLLS=96, T12=48, RPW=4, MAXWORDS=24, TILTX=-18, TILTY=22;
 var PIPS={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 var FACE_ROT={1:[0,0],2:[90,0],3:[0,-90],4:[0,90],5:[-90,0],6:[0,180]};
-var FACE_PLACE={front:[0,0,1],back:[0,180,1],right:[0,90,1],left:[0,-90,1],top:[90,0,1],bottom:[-90,0,1]};
+var FACE_PLACE={front:[0,0],back:[0,180],right:[0,90],left:[0,-90],top:[90,0],bottom:[-90,0]};
 function d6(){
   if(window.crypto&&crypto.getRandomValues){
     var a=new Uint32Array(1),lim=4294967292;
@@ -1619,6 +1724,9 @@ function d6(){
     return (a[0]%6)+1;
   }
   return Math.floor(Math.random()*6)+1;
+}
+function setCube(){
+  if(diceCube)diceCube.style.transform="rotateX("+TILTX+"deg) rotateY("+TILTY+"deg) rotateX("+diceInnerX+"deg) rotateY("+diceInnerY+"deg)";
 }
 function buildCube(){
   diceCube=$("#diceCube");if(!diceCube)return;
@@ -1635,8 +1743,20 @@ function buildCube(){
     }
     diceCube.appendChild(f);
   });
+  diceInnerX=0;diceInnerY=0;setCube();
 }
 function bits(n){return (n*Math.log(6)/Math.log(2))}
+/* transparent, coordinated derivation: 4 dice → 1 word (base-6 index into wordlist) */
+function deriveWords(){
+  var out=[],n=Math.min(MAXWORDS,Math.floor(diceRolls.length/RPW));
+  for(var i=0;i<n;i++){
+    var g=diceRolls.slice(i*RPW,i*RPW+RPW);
+    var idx=((g[0]-1)*216+(g[1]-1)*36+(g[2]-1)*6+(g[3]-1))%WORDS.length;
+    out.push({w:WORDS[idx],dice:g});
+  }
+  return out;
+}
+function diceChips(arr){return arr.map(function(d){return "<b>"+d+"</b>"}).join("")}
 function renderRollGrid(popIndex){
   var g=$("#rollGrid");if(!g)return;
   var html="";
@@ -1647,44 +1767,43 @@ function renderRollGrid(popIndex){
   }
   g.innerHTML=html;
   $("#diceCount").textContent=diceRolls.length+" / "+MAXROLLS;
-  var b=bits(diceRolls.length);
+  var b=bits(diceRolls.length), nWords=Math.min(MAXWORDS,Math.floor(diceRolls.length/RPW));
   var fill=$("#diceFill");if(fill)fill.style.width=Math.min(100,diceRolls.length/MAXROLLS*100)+"%";
   var st=$("#diceStatus");
   if(st){
     if(diceRolls.length===0){st.innerHTML="0 rolls · 0 bits · the firmware managed ~40–72"}
-    else if(b<72){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · <span class='hot'>still inside the firmware's broken range</span>"}
-    else if(diceRolls.length<T12){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · already past the firmware — keep going"}
-    else if(diceRolls.length<MAXROLLS){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · <span class='hot'>12-word strength reached</span>"}
-    else{st.innerHTML="99 rolls · "+b.toFixed(0)+" bits · <span class='hot'>256-bit · 24-word strength</span>"}
+    else if(b<72){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · "+nWords+" words · <span class='hot'>still inside the firmware's broken range</span>"}
+    else if(diceRolls.length<T12){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · "+nWords+" words · past the firmware — keep going"}
+    else if(diceRolls.length<MAXROLLS){st.innerHTML=diceRolls.length+" rolls · "+b.toFixed(0)+" bits · <span class='hot'>"+nWords+"-word phrase</span>"}
+    else{st.innerHTML="96 rolls · "+b.toFixed(0)+" bits · <span class='hot'>256-bit · 24-word phrase</span>"}
   }
 }
-function bytesToWords(buf,count){
-  var out=[];for(var i=0;i<count;i++){out.push(WORDS[buf[i]%WORDS.length])}return out;
+function renderLedger(popNew){
+  var list=$("#diceLedgerList");if(!list)return;
+  var words=deriveWords(),html="";
+  words.forEach(function(o,i){
+    var pop=(popNew&&i===words.length-1)?" pop":"";
+    html+='<span class="ledger-chip'+pop+'"><span class="dice">'+diceChips(o.dice)+'</span><span class="arw">→</span><span class="wd">'+o.w+'</span></span>';
+  });
+  var rem=diceRolls.length-words.length*RPW;
+  if(rem>0){
+    var pend=diceRolls.slice(words.length*RPW),dots="";
+    for(var k=0;k<RPW-rem;k++){dots+='<b style="opacity:.35">·</b>'}
+    html+='<span class="ledger-chip pending"><span class="dice">'+diceChips(pend)+dots+'</span><span class="arw">→</span><span class="wd">…</span></span>';
+  }
+  list.innerHTML=html||'<span class="dice-ledger__lab">roll to begin</span>';
 }
-function derivePhrase(){
+function renderPhrase(){
   var wrap=$("#phraseWrap");if(!wrap)return;
-  if(diceRolls.length<T12){wrap.hidden=true;return}
-  var count=diceRolls.length>=MAXROLLS?24:12;
-  var str="coinkite-dice|"+diceRolls.join("");
-  var enc=new TextEncoder().encode(str);
-  function paint(buf){
-    var words=bytesToWords(buf,count);
-    wrap.hidden=false;
-    $("#phraseTitle").textContent=count+"-word recovery phrase";
-    $("#phraseGrid").innerHTML=words.map(function(w,i){
-      return '<div class="pw"><span class="n">'+(i+1)+'</span><span class="w" style="--d:'+(i*0.03)+'s">'+w+"</span></div>";
-    }).join("");
-    wrap._words=words.join(" ");
-  }
-  if(window.crypto&&crypto.subtle&&crypto.subtle.digest){
-    crypto.subtle.digest("SHA-256",enc).then(function(h){paint(new Uint8Array(h))});
-  }else{
-    /* fallback: simple FNV-ish expansion, novelty only */
-    var buf=new Uint8Array(count),acc=2166136261>>>0;
-    for(var i=0;i<str.length;i++){acc^=str.charCodeAt(i);acc=(acc*16777619)>>>0}
-    for(var j=0;j<count;j++){acc=(acc*16777619+j)>>>0;buf[j]=acc&255}
-    paint(buf);
-  }
+  var words=deriveWords();
+  if(words.length<12){wrap.hidden=true;return}
+  var count=Math.min(MAXWORDS,words.length),show=words.slice(0,count);
+  wrap.hidden=false;
+  $("#phraseTitle").textContent=count+"-word phrase · straight from your dice";
+  $("#phraseGrid").innerHTML=show.map(function(o,i){
+    return '<div class="pw"><span class="n">'+(i+1)+'</span><span class="dice-src" aria-hidden="true">'+diceChips(o.dice)+'</span><span class="w" style="--d:'+(i*0.02)+'s">'+o.w+'</span></div>';
+  }).join("");
+  wrap._words=show.map(function(o){return o.w}).join(" ");
 }
 function rollDice(){
   if(diceRolls.length>=MAXROLLS)return;
@@ -1692,23 +1811,25 @@ function rollDice(){
   diceRolls.push(v);
   if(diceCube){
     var base=FACE_ROT[v];
-    var spins=motionOK?(3+Math.floor(d6()/2)):0;
-    diceSpinX+=360*spins; diceSpinY+=360*spins;
-    diceCube.style.transform="rotateX("+(diceSpinX+base[0])+"deg) rotateY("+(diceSpinY+base[1])+"deg)";
-    diceCube.classList.add("rolling");
+    spinCount+=motionOK?(3+(d6()%3)):0;
+    diceInnerX=360*spinCount+base[0];
+    diceInnerY=360*spinCount+base[1];
+    setCube();
   }
   renderRollGrid(diceRolls.length-1);
-  derivePhrase();
+  renderLedger(true);
+  renderPhrase();
 }
 function diceCeremony(){
   if(!$("#diceCube"))return;
   buildCube();
   renderRollGrid(-1);
+  renderLedger(false);
   $("#diceRoll").addEventListener("click",rollDice);
   $("#diceClear").addEventListener("click",function(){
-    diceRolls=[];var w=$("#phraseWrap");if(w){w.hidden=true;w._words=""}
-    renderRollGrid(-1);
-    if(diceCube){diceSpinX+=360;diceCube.style.transform="rotateX("+(diceSpinX-24)+"deg) rotateY("+(diceSpinY+22)+"deg)"}
+    diceRolls=[];spinCount=0;var w=$("#phraseWrap");if(w){w.hidden=true;w._words=""}
+    renderRollGrid(-1);renderLedger(false);
+    if(diceCube){diceInnerX=0;diceInnerY=0;setCube()}
   });
   $("#phraseCopy").addEventListener("click",function(){
     var w=$("#phraseWrap"),btn=this;if(!w||!w._words)return;
@@ -1718,14 +1839,42 @@ function diceCeremony(){
   });
 }
 
+/* ---------- incident · counts from incident.json, USD live against BTC price ---------- */
+var incident={btc:1367.05,addresses:4585,unspentPct:100,asOf:"2026-08-02T09:30:00-04:00",note:"across three waves · one operator"};
+var btcUsd=null;
+function fmtUsdBig(n){if(n>=1e9)return "$"+(n/1e9).toFixed(2)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(1)+"M";return fmtUsd(n)}
+function paintIncident(){
+  var b=$("#incBtc");if(b)b.innerHTML=incident.btc.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+'<span class="climb">▲ climbing</span>';
+  var a=$("#incAddr");if(a)a.textContent=incident.addresses.toLocaleString("en-US");
+  var u=$("#incUnspent");if(u)u.innerHTML=incident.unspentPct+'<span class="unit">%</span>';
+  var sub=$("#incBtcSub");if(sub&&incident.note)sub.textContent=incident.note;
+  var as=$("#incAsOf");if(as&&incident.asOf){var dt=new Date(incident.asOf);if(!isNaN(dt))as.textContent="as of "+dt.toLocaleString("en-US",{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})}
+  if(btcUsd){
+    var px=$("#incBtcPx");if(px)px.textContent="$"+Math.round(btcUsd).toLocaleString("en-US");
+    var usd=$("#incUsd");if(usd){usd.textContent=fmtUsdBig(incident.btc*btcUsd);if(motionOK){usd.classList.remove("vflash");void usd.offsetWidth;usd.classList.add("vflash")}}
+  }
+}
+function loadIncident(){
+  fetch("incident.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    if(j&&j.btc){incident.btc=j.btc;incident.addresses=j.addresses||incident.addresses;incident.unspentPct=(j.unspentPct!=null?j.unspentPct:incident.unspentPct);incident.asOf=j.asOf||incident.asOf;incident.note=j.note||incident.note;paintIncident()}
+  }).catch(function(){});
+}
+function btcPrice(){
+  if(document.hidden)return;
+  fetch("https://api.coinbase.com/v2/prices/BTC-USD/spot").then(function(r){if(!r.ok)throw 0;return r.json()})
+  .then(function(j){var p=parseFloat(j&&j.data&&j.data.amount);if(p){btcUsd=p;paintIncident()}})
+  .catch(function(){fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd").then(function(r){return r.json()}).then(function(j){if(j&&j.bitcoin){btcUsd=j.bitcoin.usd;paintIncident()}}).catch(function(){})});
+}
+
 /* ---------- boot ---------- */
 function boot(){
   reveal();scrollReveals();rotator();belt();header();disclosures();copychips();magnets();swapWire();ticker();
   chartTabs();diceCeremony();
+  paintIncident();loadIncident();btcPrice();setInterval(btcPrice,120000);
   market();setInterval(market,30000);
   supply();setInterval(supply,60000);
   feed();setInterval(feed,12000);
-  document.addEventListener("visibilitychange",function(){if(!document.hidden){market();feed()}});
+  document.addEventListener("visibilitychange",function(){if(!document.hidden){market();feed();btcPrice()}});
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",boot)}else{boot()}
 })();

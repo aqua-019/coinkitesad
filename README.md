@@ -31,8 +31,23 @@ DexScreener API and public Solana RPC.
   grid and deterministically derive a demo recovery phrase. A novelty — never secure real
   funds with a phrase from a website.
 
-Chart source is switchable (DexScreener / GeckoTerminal / Jupiter) in case an embed is
-blocked.
+Chart source is switchable (**GeckoTerminal** default, then DexScreener / Jupiter) in
+case an embed is blocked.
+
+### Incident data (`incident.json`)
+
+The "Incident metrics" section is an ongoing situation. The counts (BTC relocated,
+addresses swept, % unspent, as-of timestamp) load from `incident.json` so they can be
+updated in a single small commit; the USD figure is computed live in the browser against
+the Bitcoin spot price (Coinbase, CoinGecko fallback). Current values as of 2026-08-02:
+1,367.05 BTC across 4,585 addresses (~$88.6M), three waves, 100% unspent. Edit
+`incident.json` to refresh the headline numbers.
+
+### Dice ceremony
+
+The die uses the browser CSPRNG. Derivation is transparent and coordinated: every 4 rolls
+map (base-6) to one word, shown as `[d][d][d][d] → word` in a ledger under the button and
+mirrored in the phrase grid. 48 rolls → 12 words, 96 → 24. A novelty — never a real seed.
 
 ## Design
 
