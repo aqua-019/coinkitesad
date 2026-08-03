@@ -1,11 +1,10 @@
 {
-  "btc": 1367.05,
-  "addresses": 4585,
+  "btc": 1755.98,
+  "addresses": 5047,
   "unspentPct": 100,
-  "asOf": "2026-08-02T09:30:00-04:00",
-  "note": "across three waves · one operator",
-  "usdReported": 88600000,
-  "waves": 3,
-  "source": "https://www.coindesk.com/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million",
-  "updated_by": "manual + scheduled re-verification against reporting"
+  "asOf": "2026-08-02T21:40:00-04:00",
+  "note": "across four waves · one operator",
+  "usdReported": 90000000,
+  "waves": 4,
+  "source": "https://bitcoinworld.co.in/alex-thorn-coldcard-btc-theft-wave/"
 }
