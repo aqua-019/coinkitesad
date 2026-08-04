@@ -1,0 +1,95 @@
+{
+  "_comment": "Per-wave ledger. Slow-moving and human-curated. The volatile cumulative counters live in incident.json and are owned by the refresh schedule. Nothing enters this file without a named claimant.",
+  "updatedUtc": "2026-08-04T15:10:00Z",
+  "waves": [
+    {
+      "n": 1,
+      "label": "Wave one",
+      "startUtc": "2026-07-30T00:00:00Z",
+      "durationText": "under an hour",
+      "btc": 1000,
+      "btcQualifier": "first reported at 594 BTC in a 25-minute sweep, revised past 1,000",
+      "addresses": null,
+      "topology": "shared",
+      "topologyText": "Shared collection wallets — a handful of destinations, trivially clusterable.",
+      "claimedBy": "Block — Bitcoin Engineering and Security teams",
+      "via": "The Defiant",
+      "url": "https://thedefiant.io/news/security/coldcard-thefts-near-usd114-million-as-fourth-attack-wave-hits",
+      "tier": 2
+    },
+    {
+      "n": 2,
+      "label": "Wave two",
+      "startUtc": "2026-07-31T00:00:00Z",
+      "durationText": "hours",
+      "btc": null,
+      "btcQualifier": "not disclosed separately; folded into the 1,367 BTC cumulative by 2 August",
+      "addresses": null,
+      "topology": "shared",
+      "topologyText": "Shared collection wallets, same pattern as wave one.",
+      "claimedBy": "not separately attributed",
+      "via": "The Defiant",
+      "url": "https://thedefiant.io/news/security/coldcard-thefts-near-usd114-million-as-fourth-attack-wave-hits",
+      "tier": 2
+    },
+    {
+      "n": 3,
+      "label": "Wave three",
+      "startUtc": "2026-08-02T00:00:00Z",
+      "durationText": "hours",
+      "btc": null,
+      "btcQualifier": "cumulative reached 1,367 BTC across 4,585 addresses at the close of this wave",
+      "addresses": 4585,
+      "addressesQualifier": "cumulative, not wave-only",
+      "topology": "shared",
+      "topologyText": "Shared collection wallets. This is the last wave that clusters cleanly.",
+      "claimedBy": "reporting consensus, 2 August",
+      "via": "CoinDesk",
+      "url": "https://www.coindesk.com/tech/2026/08/02/bitcoin-cold-wallet-attack-spreads-to-4-500-addresses-as-losses-near-usd89-million",
+      "tier": 4
+    },
+    {
+      "n": 4,
+      "label": "Wave four",
+      "startUtc": "2026-08-02T22:25:49Z",
+      "endUtc": "2026-08-03T00:18:01Z",
+      "durationText": "112 minutes · 15 blocks",
+      "btc": 448.73,
+      "btcQualifier": "388.93 BTC confirmed across 218 transactions from 462 addresses, revised to ~448.73 BTC across 709 addresses",
+      "addresses": 709,
+      "blockFrom": 960778,
+      "blockTo": 960792,
+      "rate": "13.8 sweeps per block · roughly 45x the prior rate",
+      "topology": "fresh",
+      "topologyText": "Freshly generated addresses, one per victim, with no prior history. The clustering that worked on waves one to three does not work here.",
+      "rbf": true,
+      "rbfText": "Sweeps were broadcast with replace-by-fee opt-in and sat unconfirmed in the mempool. A victim who noticed in time could broadcast a conflicting transaction spending the same UTXOs to an address they still controlled, at a higher fee rate, and win the race. It is the only point in this whole incident where the defender had a move.",
+      "claimedBy": "Galaxy Research — Alex Thorn, head of firmwide research",
+      "via": "The Crypto Times",
+      "url": "https://www.cryptotimes.io/2026/08/03/coldcard-hack-enters-wave-4-449-btc-swept-live-as-victims-race-to-save-funds/",
+      "tier": 2
+    }
+  ],
+  "actors": {
+    "assessment": "multiple",
+    "text": "Wave four's fragmented topology differs from the earlier waves in a way that points to independent operators racing the same disclosure rather than one coordinated group finishing a job. Reporting describes multiple groups moving across the vulnerable set in parallel.",
+    "claimedBy": "Galaxy Research — Alex Thorn",
+    "via": "The Crypto Times",
+    "url": "https://www.cryptotimes.io/2026/08/03/coldcard-hack-enters-wave-4-449-btc-swept-live-as-victims-race-to-save-funds/",
+    "tier": 2
+  },
+  "custody": {
+    "unspentPct": 76,
+    "text": "Roughly three quarters of the take has not moved since it landed. The remainder has left its first destination. No tier-1 or tier-2 source has published a named address set for wave four, so where it went is not stated here — and because wave four used one fresh address per victim rather than shared collectors, an apparent 'movement' signal can be topology rather than a cash-out. Treat the split as reported, not as verified.",
+    "claimedBy": "aggregate reporting",
+    "tier": 4
+  },
+  "sourceTiers": {
+    "1": "On-chain and self-verifiable. Block heights, timestamps, confirmations, fee rates — read live from mempool.space and checkable by anyone against any node. Requires trusting no one.",
+    "2": "Named attribution research. A named analyst or firm doing the address clustering: Galaxy Research, Block's security teams, ZachXBT, Chainalysis, Elliptic. This tier decides WHICH addresses belong to the attack, which a block explorer cannot tell you.",
+    "3": "Vendor statement. Coinkite's own advisories on scope and remediation.",
+    "4": "Press aggregating tiers 2 and 3. Citable, but the figure belongs to whoever the outlet is quoting, and that name is what gets recorded here.",
+    "5": "Unattributed social posts. Never written into these files. Used only as a lead to chase into tier 1 or tier 2."
+  },
+  "rule": "No figure is published without a named claimant. Where a claim cannot be raised above tier 5, the prior value stands and the discrepancy is recorded in the unverified list rather than shown as a number."
+}

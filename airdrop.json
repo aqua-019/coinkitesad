@@ -1,10 +1,54 @@
 {
+  "version": 2,
   "status": "committed",
-  "rule": "Allocation is proportional to the MINIMUM balance held, measured at the anchor slot and at every undisclosed checkpoint in the window. You are paid on the least you ever held.",
+  "poolTokens": 200000000,
+  "poolPctOfCirculating": 20,
+  "poolNote": "A hard cap, committed here before the window opened. 200,000,000 $115792 — twenty per cent of the one billion circulating after the one billion burn. The pool cannot grow and it cannot shrink. Every allocation below is a pro-rata slice of this fixed number, so no combination of participants can over-commit it.",
+  "rule": "Allocation weight = (the MINIMUM balance you held, measured at the anchor slot and at every undisclosed checkpoint) x (your tenure multiplier). Your payout is your weight divided by the sum of all weights, multiplied by the pool. You are paid on the least you ever held, scaled by how early you were holding it.",
+  "base": "Minimum balance across the anchor slot and all checkpoints. Sell at any point and your weight is permanently capped at that trough, including at checkpoints you have not seen yet.",
+  "tiers": [
+    {
+      "id": "anchor",
+      "label": "Original entropy",
+      "mult": 3,
+      "test": "Held at or above the dust floor at the anchor slot — a block that had already passed before any of this was published.",
+      "note": "Unfarmable by construction. You either were there or you were not."
+    },
+    {
+      "id": "early",
+      "label": "Early",
+      "mult": 2,
+      "test": "Not at the anchor, but holding by checkpoint one or two.",
+      "note": "The checkpoint times are secret, so the only way to be certain of catching an early one is to be holding now."
+    },
+    {
+      "id": "mid",
+      "label": "Mid",
+      "mult": 1.5,
+      "test": "First holding at checkpoint three or four."
+    },
+    {
+      "id": "late",
+      "label": "Late",
+      "mult": 1,
+      "test": "First holding at the final checkpoint only.",
+      "note": "Still a real allocation. Late is not zero — it is just worth a third of what the people who were already here get."
+    }
+  ],
+  "bonus": {
+    "id": "entropy",
+    "label": "Found the entropy",
+    "mult": 0.25,
+    "additive": true,
+    "test": "Located the hidden recovery screen on the site and submitted the address-bound code it issues.",
+    "note": "Added to the multiplier rather than multiplied by it, which means it is worth proportionally more to a late arrival (+25%) than to an anchor holder (+8%). That asymmetry is deliberate."
+  },
+  "worked_example": "Two wallets each hold a minimum of 1,000,000 tokens across every checkpoint. Wallet A held at the anchor slot: weight 3,000,000. Wallet B bought after the announcement and first appears at the final checkpoint: weight 1,000,000. A receives three times what B receives. If B also finds the entropy, B's weight becomes 1,250,000 and the gap narrows to 2.4x.",
   "anchorSlot": 437194807,
   "anchorTimeUtc": "2026-08-04T14:49:18Z",
   "commitment": "9a874b24e0c28700add51a7726e5d508b8230238423172015845ea019a2419d0",
   "commitmentAlgo": "SHA-256 of: checkpoint unix timestamps joined by ',', then '|', then a 16-byte hex nonce",
+  "commitmentCovers": "The checkpoint TIMINGS and the nonce. It does not cover the payout formula, which is versioned in this file and amended in public.",
   "checkpointCount": 5,
   "windowOpensUtc": "2026-08-04T15:49:18Z",
   "windowClosesUtc": "2026-08-18T15:49:18Z",
@@ -13,5 +57,31 @@
   ],
   "dustFloorTokens": 10000,
   "sourceWallet": "",
-  "revealed": null
+  "revealed": null,
+  "seasonTwo": {
+    "status": "intent",
+    "statusNote": "The RULE is committed now. The amount and the date are not promised and are explicitly at the source wallet's discretion. This is published in advance for one reason: so that nobody can claim afterwards that the retention rule was invented once it was convenient.",
+    "poolCeilingPctOfCirculating": 50,
+    "dated": false,
+    "rule": "Season two weight = (minimum balance across the season-two checkpoints) x (tenure multiplier, carried over) x (retention multiplier). The retention multiplier is measured on how much of your SEASON ONE allocation you still hold when season two is measured.",
+    "retention": [
+      { "heldPctOfSeasonOne": 100, "mult": 2.5, "label": "Never sold a single one" },
+      { "heldPctOfSeasonOne": 75, "mult": 2, "label": "Kept most of it" },
+      { "heldPctOfSeasonOne": 50, "mult": 1.5, "label": "Kept half" },
+      { "heldPctOfSeasonOne": 0, "mult": 1, "label": "Took the money" }
+    ],
+    "why": "Airdrops normally get sold within the hour, because a token you were given for free has no anchor. Publishing the retention rule before season one lands changes what the tokens are: holding them becomes the qualification for the larger pool rather than a sentimental choice. It produces the behaviour a vesting contract produces, without a vesting contract, a cliff, or any code that could be exploited. Nobody is locked. Everyone is simply told, in advance and in public, what selling costs them.",
+    "recursion": "Retention is measured with the same instrument as everything else on this page — the minimum balance across undisclosed checkpoints. Your season one tokens are not tracked separately or tagged in any way; they are simply part of the floor you are measured on. Sell them and your floor drops. The rule does not need to know which tokens were which.",
+    "disclaimer": "No allocation is owed to anyone in either season. Season two may be smaller than the ceiling, later than anyone expects, or may not happen. What is committed here is the rule that would govern it, not its existence."
+  },
+  "amendments": [
+    {
+      "version": 2,
+      "atUtc": "2026-08-04T15:03:28Z",
+      "change": "Replaced the hard retroactive gate with a tenure multiplier, and published the pool cap. Version 1 paid only wallets present at the anchor slot, which meant a buyer arriving after the announcement had a weight of exactly zero. Version 2 lets any holder qualify, pays anchor holders 3x, and scales down to 1x for the latest arrivals. The minimum-balance base is unchanged.",
+      "reason": "Version 1 was unfarmable and therefore inert: it rewarded people who had already bought and gave nobody a reason to buy. The anti-dump property was the good part and it survives intact — you are still paid on your floor, so claiming and selling still caps you at the trough. What changed is that arriving late is now worth something instead of nothing.",
+      "affectsCommitment": false,
+      "note": "The commitment hash covers the checkpoint timings and the nonce only. It is unchanged and remains valid against the original preimage. No distribution had occurred, and no checkpoint had been taken, at the time of this amendment. The diff is in the public git history of this file."
+    }
+  ]
 }
