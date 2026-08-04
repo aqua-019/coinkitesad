@@ -1920,7 +1920,7 @@ function copychips(){
         announce("Contract address copied to clipboard");
         toast("CA copied · gm");
         var r=chip.getBoundingClientRect();
-        confetti(r.left+r.width/2,r.top+r.height/2,14,3);
+        confetti(r.left+r.width/2,r.top+r.height/2,10,3);
         setTimeout(function(){chip.classList.remove("is-copied")},1600);
       }
       if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(MINT).then(done,done)}
@@ -2431,7 +2431,7 @@ function renderFeed(){
     if(top&&d0&&d0.side==="buy"){
       var usd=(d0.sol&&live.solUsd)?d0.sol*live.solUsd:(d0.tok&&live.priceUsd?d0.tok*live.priceUsd:0);
       buypop("↑ buy "+(usd?fmtUsd(usd):fmtCompact(d0.tok||0)),top);
-      if(usd>250){toast("whale alert · "+fmtUsd(usd),3000);var wr=top.getBoundingClientRect();laughBurst(wr.left+wr.width*0.5,wr.top,9,true);}
+      if(usd>250){toast("whale alert · "+fmtUsd(usd),3000);var wr=top.getBoundingClientRect();laughBurst(wr.left+wr.width*0.5,wr.top,6,true);}
     }else if(top&&d0&&d0.side==="sell"){
       buypop("↓ sell",top);
     }
@@ -2923,8 +2923,8 @@ function splashRun(){
     [7000, function(){txt.textContent="......"}],
     [7450, function(){txt.textContent=".........";cap.textContent="verifying randomness"}],
     [7800, function(){txt.className="warn glitch";txt.textContent="I FUCKED\nUP FAM";cap.textContent="115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936 possible keys. it picked one of the easy ones.";
-                      if(typeof laughBurst==="function"){var r=el.getBoundingClientRect();laughBurst(r.width/2,r.height*0.34,14,true)}}],
-    [8700, function(){if(typeof laughBurst==="function"){var r2=el.getBoundingClientRect();laughBurst(r2.width/2,r2.height*0.5,10,true)}}],
+                      if(typeof laughBurst==="function"){var r=el.getBoundingClientRect();laughBurst(r.width/2,r.height*0.34,8,true)}}],
+    [8700, function(){if(typeof laughBurst==="function"){var r2=el.getBoundingClientRect();laughBurst(r2.width/2,r2.height*0.5,6,true)}}],
     [TOTAL,function(){splashEnd()}]
   ]:[
     [0,    function(){txt.textContent="COLDCARD WALLET"}],
@@ -2971,8 +2971,8 @@ var LAUGH_FACE=
  '<g transform="translate(92,54)"><g class="lf-tear lf-tear-r">'+
    '<path d="M0 0 C -9 15 -13 24 0 31 C 13 24 9 15 0 0 Z"/></g></g>'+
  '</svg>';
-var UNI=["😂","🤣","😹","💀","🫵","😆"];
-var laughN=0, laughLive=0, faceLive=0, LAUGH_CEIL=46, LAUGH_CAP=46, FACE_CAP=12;
+var UNI=["😂","🤣","🤡","😹","💀","🤡","🫵","😆"];
+var laughN=0, laughLive=0, faceLive=0, LAUGH_CEIL=12, LAUGH_CAP=12, FACE_CAP=4;
 /* D3341 · frame governor. We cannot know the visitor's hardware, so measure
    it: sample real frame times and move the emoji ceiling to fit. Absurd on a
    fast machine, still smooth on a slow one. */
@@ -2986,7 +2986,7 @@ function frameGovernor(){
     if(acc>=1000){
       govFps=frames*1000/acc;acc=0;frames=0;
       if(govFps<42){LAUGH_CAP=Math.max(8,LAUGH_CAP-6);FACE_CAP=Math.max(2,FACE_CAP-2)}
-      else if(govFps>54){LAUGH_CAP=Math.min(LAUGH_CEIL,LAUGH_CAP+3);FACE_CAP=Math.min(12,FACE_CAP+1)}
+      else if(govFps>54){LAUGH_CAP=Math.min(LAUGH_CEIL,LAUGH_CAP+2);FACE_CAP=Math.min(4,FACE_CAP+1)}
     }
     requestAnimationFrame(tick);
   }
@@ -3010,7 +3010,7 @@ function spawnLaugh(x,y,opts){
   }
   if(shash(i,39.4871)>0.72){
     var pt=document.createElement("span");pt.className="pt";
-    pt.textContent=shash(i,11.11)>0.5?"👉":"🫵";
+    var pk=shash(i,11.11);pt.textContent=pk>0.66?"👉":(pk>0.33?"🫵":"🤡");
     el.appendChild(pt);
   }
   var s=(opts.smin||0.55)+shash(i,21.73)*((opts.smax||2.25)-(opts.smin||0.55));
@@ -3061,18 +3061,18 @@ function laughAmbient(){
     var deg=document.body.classList.contains("degen");
     if(!document.hidden&&laughLive<LAUGH_CAP*0.9){
       var head=LAUGH_CAP/LAUGH_CEIL;
-      var burst=Math.max(1,Math.round((deg?(4+Math.floor(shash(laughN,5.5)*3)):(2+Math.floor(shash(laughN,5.5)*2)))*head));
+      var burst=Math.max(1,Math.round((deg?(shash(laughN,5.5)>0.5?2:1):1)*head));
       for(var q=0;q<burst;q++){
         var i=laughN+q;
         var x=30+shash(i,12.9898)*(window.innerWidth-90);
         var y=60+shash(i,78.233)*(window.innerHeight-130);
-        spawnLaugh(x,y,{smin:deg?0.5:0.45,smax:deg?2.7:2.1,dur:deg?1.5:1.8});
+        spawnLaugh(x,y,{smin:deg?0.5:0.45,smax:deg?2.3:1.8,dur:deg?1.4:1.6});
       }
     }
-    var gap=deg?135:280;
+    var gap=deg?900:2000;
     laughTimer=setTimeout(tick,gap+shash(laughN,8.8)*gap*0.5);
   }
-  laughTimer=setTimeout(tick,400);
+  laughTimer=setTimeout(tick,1600);
 }
 /* every button, chip and icon clips + bursts */
 function laughClips(){
@@ -3082,7 +3082,7 @@ function laughClips(){
     if(motionOK){t.classList.remove("clipped");void t.offsetWidth;t.classList.add("clipped")}
     var r=t.getBoundingClientRect();
     var big=t.classList.contains("btn-primary")||t.classList.contains("x-btn");
-    laughBurst(r.left+r.width/2,r.top+r.height/2,big?16:9,big);
+    laughBurst(r.left+r.width/2,r.top+r.height/2,big?7:4,big);
   },true);
 }
 
@@ -3125,7 +3125,7 @@ function degenMode(){
       var r=btn.getBoundingClientRect();
       confetti(r.left+r.width/2,r.bottom,34,11);
       frogRain(14);
-      laughBurst(r.left+r.width/2,r.bottom,16,true);
+      laughBurst(r.left+r.width/2,r.bottom,9,true);
       toast("degen mode engaged · nothing is financial advice",3200);
     }else{
       toast("degen mode off. responsible of you.");
@@ -3157,7 +3157,7 @@ function frogPlay(){
       setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},950);
     }
     if(taps%3===0)toast(GM[taps/3%GM.length|0]);
-    laughBurst(e.clientX,e.clientY,4);
+    laughBurst(e.clientX,e.clientY,3);
     if(taps===9){confetti(e.clientX,e.clientY,40,7);toast("ok that's enough",2600)}
   });
 }
@@ -3383,7 +3383,7 @@ function rollDice(){
     var rr=$("#diceRoll").getBoundingClientRect();
     confetti(rr.left+rr.width/2,rr.top,60,99);
     frogRain(22);
-    laughBurst(rr.left+rr.width/2,rr.top,18,true);
+    laughBurst(rr.left+rr.width/2,rr.top,10,true);
     toast("256 bits. entropy stronger than coldcard.",3600);
   }
 }
