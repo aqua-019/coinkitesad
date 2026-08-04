@@ -1,0 +1,17 @@
+{
+  "status": "committed",
+  "rule": "Allocation is proportional to the MINIMUM balance held, measured at the anchor slot and at every undisclosed checkpoint in the window. You are paid on the least you ever held.",
+  "anchorSlot": 437194807,
+  "anchorTimeUtc": "2026-08-04T14:49:18Z",
+  "commitment": "9a874b24e0c28700add51a7726e5d508b8230238423172015845ea019a2419d0",
+  "commitmentAlgo": "SHA-256 of: checkpoint unix timestamps joined by ',', then '|', then a 16-byte hex nonce",
+  "checkpointCount": 5,
+  "windowOpensUtc": "2026-08-04T15:49:18Z",
+  "windowClosesUtc": "2026-08-18T15:49:18Z",
+  "excludedAccounts": [
+    "CW959iWe22eV8rVfMxRkeqexoWuoo8V4bHmpjkUeBmvV"
+  ],
+  "dustFloorTokens": 10000,
+  "sourceWallet": "",
+  "revealed": null
+}
