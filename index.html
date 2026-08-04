@@ -2950,7 +2950,7 @@ function splashEnd(){
   setTimeout(function(){
     var b=$("#degenToggle");
     if(b&&b.getAttribute("aria-pressed")!=="true"){b.click();}
-  },10000);
+  },5000);
 }
 
 /* ============================================================
@@ -3439,7 +3439,7 @@ function boot(){
   var sp=$("#splash");
   if(sp&&!seen){splashRun();setTimeout(laughAmbient,motionOK?7200:2800)}
   else{if(sp){sp.hidden=true}splashDone=true;laughAmbient();
-       setTimeout(function(){var b=$("#degenToggle");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()},10000);}
+       setTimeout(function(){var b=$("#degenToggle");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()},5000);}
   reveal();scrollReveals();rotator();belt();header();disclosures();copychips();magnets();swapWire();ticker();
   chartTabs();diceCeremony();xButtons();themeFlip();frogPlay();
   progressRail();cascades();degenBelt();degenMode();laughClips();frameGovernor();
