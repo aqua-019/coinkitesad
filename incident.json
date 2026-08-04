@@ -1,10 +1,10 @@
 {
-  "btc": 1815.75,
+  "btc": 1816,
   "addresses": 5294,
   "unspentPct": 100,
-  "asOf": "2026-08-03T12:46:34Z",
+  "asOf": "2026-08-03T13:09:00Z",
   "note": "across four waves · one operator",
-  "usdReported": 115000000,
+  "usdReported": 114000000,
   "waves": 4,
-  "source": "https://www.kucoin.com/news/flash/coldcard-hit-by-suspected-fourth-attack-wave-as-losses-mount"
+  "source": "https://www.coindesk.com/tech/2026/08/03/coldcard-wallet-losses-may-near-usd114-million-as-possible-fourth-sweep-emerges"
 }
