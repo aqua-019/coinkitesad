@@ -1926,7 +1926,8 @@ WALLET</b></div>
     <div class="ad-grid">
       <div class="ad-rule" data-reveal>
         <p class="big">One base, one multiplier.</p>
-        <p><strong>The base — what you're measured on.</strong> Five checkpoints land at undisclosed times inside the window. Your base is the <em>minimum</em> balance across the anchor slot and every checkpoint. Sell at any point and it is permanently capped at that trough, including at the checkpoints you haven't seen yet. Claim-and-dump pays you what you dumped to.</p>
+        <p><strong>The base — what you're measured on.</strong> Five checkpoints land at undisclosed times inside the window, and a sixth measurement is taken at the close, whose time is public. Your base is the <em>minimum</em> balance across the anchor slot, every checkpoint, and the close. Sell at any point and it is permanently capped at that trough, including at the checkpoints you haven't seen yet. Claim-and-dump pays you what you dumped to.</p>
+        <p><strong>So there is a cutoff, and you cannot see it.</strong> Because the base is a minimum across <em>all</em> of those readings, a wallet that arrives after the last secret checkpoint holds zero at the earlier ones — and a minimum containing a zero is zero. Buy late enough and the allocation is not smaller, it is nothing. Nobody knows when that line passes, which is the only honest reason to buy now rather than later.</p>
         <p><strong>The multiplier — when you got here.</strong> The anchor is a slot that had <em>already passed</em> before any of this was published; you cannot farm a block that is behind you. Being there pays triple. Arriving later still pays — just less, on a scale that only goes down.</p>
 
         <div class="tiers" id="adTiers"></div>
@@ -1936,6 +1937,7 @@ WALLET</b></div>
           <div><span class="k">Pool</span><span class="v"><span id="adPool">—</span> $115792 · <span id="adPoolPct">—</span>% of circulating · hard cap</span></div>
           <div><span class="k">Anchor slot</span><span class="v"><a id="adSlotLink" href="#" target="_blank" rel="noopener"><span id="adSlot">—</span></a> · <span id="adSlotTime">—</span></span></div>
           <div><span class="k">Checkpoints</span><span class="v"><span id="adCps">—</span> · times undisclosed, committed below</span></div>
+          <div><span class="k">Final measurement</span><span class="v"><span id="adClose">—</span> · public · hold to here</span></div>
           <div><span class="k">Window</span><span class="v"><span id="adWindow">—</span></span></div>
           <div><span class="k">Excluded</span><span class="v">the pumpswap pool vault · the source wallet</span></div>
           <div><span class="k">Dust floor</span><span class="v"><span id="adDust">—</span> $115792 minimum to qualify</span></div>
@@ -3554,6 +3556,12 @@ function paintAirdrop(){
   set("#adCps",AIR.checkpointCount!=null?AIR.checkpointCount:"—");
   set("#adDust",AIR.dustFloorTokens!=null?AIR.dustFloorTokens.toLocaleString("en-US"):"—");
   set("#adCommit",AIR.commitment||"—");
+  var fm=AIR.finalMeasurement;
+  if(fm&&fm.atUtc){
+    var fd=new Date(fm.atUtc);
+    set("#adClose",fd.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+
+      fd.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC");
+  }
   // pool
   if(AIR.poolTokens){
     set("#adPool",AIR.poolTokens.toLocaleString("en-US"));

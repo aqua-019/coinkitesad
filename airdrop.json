@@ -1,11 +1,19 @@
 {
-  "version": 2,
+  "version": 3,
   "status": "committed",
   "poolTokens": 200000000,
   "poolPctOfCirculating": 20,
   "poolNote": "A hard cap, committed here before the window opened. 200,000,000 $115792 — twenty per cent of the one billion circulating after the one billion burn. The pool cannot grow and it cannot shrink. Every allocation below is a pro-rata slice of this fixed number, so no combination of participants can over-commit it.",
-  "rule": "Allocation weight = (the MINIMUM balance you held, measured at the anchor slot and at every undisclosed checkpoint) x (your tenure multiplier). Your payout is your weight divided by the sum of all weights, multiplied by the pool. You are paid on the least you ever held, scaled by how early you were holding it.",
-  "base": "Minimum balance across the anchor slot and all checkpoints. Sell at any point and your weight is permanently capped at that trough, including at checkpoints you have not seen yet.",
+  "rule": "Allocation weight = (the MINIMUM balance you held, measured at the anchor slot, at every undisclosed checkpoint, and at the window close) x (your tenure multiplier). Your payout is your weight divided by the sum of all weights, multiplied by the pool. You are paid on the least you ever held, scaled by how early you were holding it.",
+  "base": "Minimum balance across the anchor slot, all five checkpoints, and the window close. Sell at any point and your weight is permanently capped at that trough, including at checkpoints you have not seen yet.",
+  "finalMeasurement": {
+    "atUtc": "2026-08-18T15:49:18Z",
+    "public": true,
+    "inCommitment": false,
+    "note": "The one measurement whose time is public. It is the window close, it was always published, and it counts toward your minimum exactly like a checkpoint does. Publishing it costs nothing, because a measurement everyone knows about cannot be dodged - you either hold to the close or you do not. It exists so there is no unmeasured stretch at the end of the window in which selling is free.",
+    "affectsTier": false,
+    "affectsTierNote": "It counts toward your BASE, not your TIER. Tenure is still decided by the earliest checkpoint at which you held."
+  },
   "tiers": [
     {
       "id": "anchor",
@@ -75,6 +83,15 @@
     "disclaimer": "No allocation is owed to anyone in either season. Season two may be smaller than the ceiling, later than anyone expects, or may not happen. What is committed here is the rule that would govern it, not its existence."
   },
   "amendments": [
+    {
+      "version": 3,
+      "atUtc": "2026-08-04T15:55:00Z",
+      "change": "Added the window close (2026-08-18T15:49:18Z) as a mandatory measurement counting toward the minimum-balance base, alongside the anchor and the five checkpoints. Its time is public. Nothing else changed.",
+      "reason": "The five committed checkpoint times cluster in the first nine days of the fourteen-day window, with the last landing on 13 August. That left 5.44 days at the end during which a sale would never have been measured - an unintended free exit. Random draws clump; this one clumped. Rather than move the committed times, the gap is closed by adding a measurement at the close, whose time is public and therefore cannot be gamed.",
+      "affectsCommitment": false,
+      "note": "The commitment hash 9a874b24e0c28700add51a7726e5d508b8230238423172015845ea019a2419d0 covers the five checkpoint timings and the nonce. It is untouched and still verifies against the original preimage. The close measurement is deliberately NOT part of the hash - it does not need to be secret, because its time was already published when the window was announced. Amended before any checkpoint had passed: the window opened at 15:49:18Z and the first checkpoint is not until 6 August.",
+      "sideEffect": "One consequence worth stating plainly: because the base is a minimum across the anchor, all five checkpoints AND the close, a wallet that buys after the final checkpoint has a balance of zero at earlier checkpoints and therefore a weight of zero. Buying late enough is worth nothing at all. Since the checkpoint times are secret, there is no way to know when that cutoff has passed."
+    },
     {
       "version": 2,
       "atUtc": "2026-08-04T15:03:28Z",
