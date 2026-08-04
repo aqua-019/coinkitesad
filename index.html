@@ -1077,7 +1077,7 @@ body.degen .numberbelt__track{animation-duration:16s}
 .cc-key.hit{transform:translateY(2px) scale(.95);background:linear-gradient(#5c5c58,#2c2c2a);
   box-shadow:inset 0 0 0 1px rgba(255,206,84,.65),0 0 14px rgba(255,206,84,.5)}
 /* floating glitter emoji */
-.cc-sparks{position:absolute;inset:0;z-index:3;pointer-events:none}
+.cc-sparks{position:absolute;inset:0;z-index:1;pointer-events:none}
 .cc-sparks span{position:absolute;font-size:var(--sz,26px);opacity:.9}
 @media (prefers-reduced-motion:no-preference){
   .cc-sparks span{animation:sparkfloat var(--sd,5s) ease-in-out infinite alternate;animation-delay:var(--sdl,0s)}
@@ -2872,8 +2872,13 @@ function splashBuild(){
   /* the literal glitter emoji, floating and pulsing */
   var sp=$("#ccSparks");
   if(sp){var e=["✨","💫","🪙","⭐","✨","🌟"],h2="";
-    for(var i=0;i<22;i++){
-      h2+='<span style="left:'+(6+shash(i,12.9898)*88).toFixed(1)+'%;top:'+(8+shash(i,78.233)*80).toFixed(1)+
+    for(var i=0;i<26;i++){
+      /* keep the middle clear so nothing ever sits on the keypad */
+      var px=6+shash(i,12.9898)*88, py=8+shash(i,78.233)*80;
+      if(px>33&&px<67){px=px<50?px-26:px+26}
+      if(py>26&&py<76&&px>24&&px<76){py=py<50?py-20:py+20}
+      px=Math.max(3,Math.min(95,px));py=Math.max(4,Math.min(92,py));
+      h2+='<span style="left:'+px.toFixed(1)+'%;top:'+py.toFixed(1)+
         '%;--sz:'+(16+shash(i,39.4871)*34).toFixed(0)+'px;--sd:'+(3.4+shash(i,11.11)*3.6).toFixed(2)+
         's;--sdl:'+(shash(i,21.73)*3).toFixed(2)+'s;--sx:'+(shash(i,55.31)*46-23).toFixed(0)+
         'px;--sy:'+(-14-shash(i,7.77)*40).toFixed(0)+'px">'+e[i%e.length]+"</span>";
