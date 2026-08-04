@@ -2971,7 +2971,7 @@ var LAUGH_FACE=
  '<g transform="translate(92,54)"><g class="lf-tear lf-tear-r">'+
    '<path d="M0 0 C -9 15 -13 24 0 31 C 13 24 9 15 0 0 Z"/></g></g>'+
  '</svg>';
-var UNI=["😂","🤣","🤡","😹","💀","🤡","🫵","😆"];
+var UNI=["😂","🤡","🤣","☠️","🤡","😹","💀","🤡","🫵","☠️","😆","🤡"];
 var laughN=0, laughLive=0, faceLive=0, LAUGH_CEIL=12, LAUGH_CAP=12, FACE_CAP=4;
 /* D3341 · frame governor. We cannot know the visitor's hardware, so measure
    it: sample real frame times and move the emoji ceiling to fit. Absurd on a
@@ -3001,7 +3001,7 @@ function spawnLaugh(x,y,opts){
   el.className="laugh";
   var kind=shash(i,12.9898);
   /* ~55% custom tear-face, the rest unicode, some with a pointing hand */
-  var useFace=(kind<0.55)&&faceLive<FACE_CAP;
+  var useFace=(kind<0.36)&&faceLive<FACE_CAP;
   if(useFace){
     el.innerHTML=LAUGH_FACE;faceLive++;
   }else{
@@ -3010,7 +3010,7 @@ function spawnLaugh(x,y,opts){
   }
   if(shash(i,39.4871)>0.72){
     var pt=document.createElement("span");pt.className="pt";
-    var pk=shash(i,11.11);pt.textContent=pk>0.66?"👉":(pk>0.33?"🫵":"🤡");
+    var pk=shash(i,11.11);pt.textContent=pk>0.72?"👉":(pk>0.48?"🫵":(pk>0.2?"🤡":"☠️"));
     el.appendChild(pt);
   }
   var s=(opts.smin||0.55)+shash(i,21.73)*((opts.smax||2.25)-(opts.smin||0.55));
