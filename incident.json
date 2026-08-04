@@ -1,10 +1,10 @@
 {
   "btc": 1816,
   "addresses": 5294,
-  "unspentPct": 100,
-  "asOf": "2026-08-03T13:09:00Z",
-  "note": "across four waves · one operator",
-  "usdReported": 114000000,
+  "unspentPct": 76,
+  "asOf": "2026-08-04T05:30:00Z",
+  "note": "four waves · organized groups and independent actors",
+  "usdReported": 116000000,
   "waves": 4,
-  "source": "https://www.coindesk.com/tech/2026/08/03/coldcard-wallet-losses-may-near-usd114-million-as-possible-fourth-sweep-emerges"
+  "source": "https://news.bitcoin.com/security/coldcard-hack-116-million-fourth-wave/"
 }
