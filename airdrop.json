@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "status": "committed",
   "poolTokens": 200000000,
   "poolPctOfCirculating": 20,
@@ -61,10 +61,15 @@
   "windowOpensUtc": "2026-08-04T15:49:18Z",
   "windowClosesUtc": "2026-08-18T15:49:18Z",
   "excludedAccounts": [
-    "CW959iWe22eV8rVfMxRkeqexoWuoo8V4bHmpjkUeBmvV"
+    "CW959iWe22eV8rVfMxRkeqexoWuoo8V4bHmpjkUeBmvV",
+    "DURRmWzfewH6FFJ6K1Uu771aEjYu52yjpdQMqLopf4XD",
+    "CMVYJNuaTrmHw71DTUPZXgtQ3XiV2aYmkJZgdfAw8n4u",
+    "nuESYz8VXqLPZDaYLGbhPNdjTcaHtBBHEErBQYzcGvD",
+    "EYNGbLQqLpnDNmg8nmMHV1H1TEGhpvD9Nu6cUAM49TYc",
+    "kkT8RxudipMHQWicjR3YjgMXqfSiznX4EDnhLwqWH8v"
   ],
   "dustFloorTokens": 10000,
-  "sourceWallet": "",
+  "sourceWallet": "CMVYJNuaTrmHw71DTUPZXgtQ3XiV2aYmkJZgdfAw8n4u",
   "revealed": null,
   "seasonTwo": {
     "status": "intent",
@@ -73,16 +78,41 @@
     "dated": false,
     "rule": "Season two weight = (minimum balance across the season-two checkpoints) x (tenure multiplier, carried over) x (retention multiplier). The retention multiplier is measured on how much of your SEASON ONE allocation you still hold when season two is measured.",
     "retention": [
-      { "heldPctOfSeasonOne": 100, "mult": 2.5, "label": "Never sold a single one" },
-      { "heldPctOfSeasonOne": 75, "mult": 2, "label": "Kept most of it" },
-      { "heldPctOfSeasonOne": 50, "mult": 1.5, "label": "Kept half" },
-      { "heldPctOfSeasonOne": 0, "mult": 1, "label": "Took the money" }
+      {
+        "heldPctOfSeasonOne": 100,
+        "mult": 2.5,
+        "label": "Never sold a single one"
+      },
+      {
+        "heldPctOfSeasonOne": 75,
+        "mult": 2,
+        "label": "Kept most of it"
+      },
+      {
+        "heldPctOfSeasonOne": 50,
+        "mult": 1.5,
+        "label": "Kept half"
+      },
+      {
+        "heldPctOfSeasonOne": 0,
+        "mult": 1,
+        "label": "Took the money"
+      }
     ],
     "why": "Airdrops normally get sold within the hour, because a token you were given for free has no anchor. Publishing the retention rule before season one lands changes what the tokens are: holding them becomes the qualification for the larger pool rather than a sentimental choice. It produces the behaviour a vesting contract produces, without a vesting contract, a cliff, or any code that could be exploited. Nobody is locked. Everyone is simply told, in advance and in public, what selling costs them.",
     "recursion": "Retention is measured with the same instrument as everything else on this page — the minimum balance across undisclosed checkpoints. Your season one tokens are not tracked separately or tagged in any way; they are simply part of the floor you are measured on. Sell them and your floor drops. The rule does not need to know which tokens were which.",
     "disclaimer": "No allocation is owed to anyone in either season. Season two may be smaller than the ceiling, later than anyone expects, or may not happen. What is committed here is the rule that would govern it, not its existence."
   },
   "amendments": [
+    {
+      "version": 4,
+      "atUtc": "2026-08-05T20:05:00Z",
+      "change": "Locked the 200,000,000 pool in an irrevocable Jupiter Lock escrow until 2026-08-20T19:33:54Z, and filled in the exclusion list: the source wallet, the lock escrow, and both of their token accounts now sit alongside the pool vault in excludedAccounts. sourceWallet was previously an empty string.",
+      "reason": "Two problems, one of them serious. The page has always said the source wallet is excluded, but the field was blank in this file - a claim the data did not back, on a site whose whole argument is that you can check it yourself. And the source wallet holds 504,395,083 after the lock, slightly over half the supply. Unexcluded, at the 3x anchor multiplier, it would have taken the overwhelming majority of the pool it exists to fund. The airdrop would have paid itself. Locking the pool is the other half: 20 per cent of supply is now somewhere it cannot be moved from until after every wallet has been measured.",
+      "affectsCommitment": false,
+      "note": "The commitment hash 9a874b24e0c28700add51a7726e5d508b8230238423172015845ea019a2419d0 covers the five checkpoint timings and the nonce. Untouched, and still verifies against the original preimage. Amended before the first checkpoint - the window opened on 4 August and no checkpoint has yet been taken.",
+      "sideEffect": "Excluded balances are removed before weights are summed. Taking 704,395,083 of source-wallet supply out of the denominator makes every real holder's share materially larger, not smaller."
+    },
     {
       "version": 3,
       "atUtc": "2026-08-04T15:55:00Z",
@@ -100,5 +130,65 @@
       "affectsCommitment": false,
       "note": "The commitment hash covers the checkpoint timings and the nonce only. It is unchanged and remains valid against the original preimage. No distribution had occurred, and no checkpoint had been taken, at the time of this amendment. The diff is in the public git history of this file."
     }
-  ]
+  ],
+  "excludedDetail": [
+    {
+      "address": "CW959iWe22eV8rVfMxRkeqexoWuoo8V4bHmpjkUeBmvV",
+      "role": "pool",
+      "label": "the pumpswap pool vault",
+      "note": "Liquidity is not a holder. Paying the pool would be paying the market back its own tokens."
+    },
+    {
+      "address": "DURRmWzfewH6FFJ6K1Uu771aEjYu52yjpdQMqLopf4XD",
+      "role": "pool",
+      "label": "the pool's token account",
+      "note": "The account the vault actually holds through. Listed so the exclusion cannot be dodged by naming the inner account."
+    },
+    {
+      "address": "CMVYJNuaTrmHw71DTUPZXgtQ3XiV2aYmkJZgdfAw8n4u",
+      "role": "source",
+      "label": "the source wallet",
+      "note": "Holds 504,395,083 after the lock. Excluded because a wallet holding half the supply would take most of a pool it is supposed to be funding."
+    },
+    {
+      "address": "nuESYz8VXqLPZDaYLGbhPNdjTcaHtBBHEErBQYzcGvD",
+      "role": "source",
+      "label": "the source wallet's token account",
+      "note": "Same wallet, inner account."
+    },
+    {
+      "address": "EYNGbLQqLpnDNmg8nmMHV1H1TEGhpvD9Nu6cUAM49TYc",
+      "role": "lock",
+      "label": "the airdrop lock escrow",
+      "note": "The Jupiter Lock escrow holding the 200,000,000 airdrop pool until 20 August. It is the pool, so it cannot also receive from the pool."
+    },
+    {
+      "address": "kkT8RxudipMHQWicjR3YjgMXqfSiznX4EDnhLwqWH8v",
+      "role": "lock",
+      "label": "the lock's token account",
+      "note": "Where the 200,000,000 physically sits. Same exclusion."
+    }
+  ],
+  "excludedNote": "An exclusion covers the wallet and every token account it owns; both are listed so the list can be checked mechanically without deriving anything. Excluded accounts are removed before weights are summed, so their balances do not dilute anyone and do not earn anything.",
+  "lock": {
+    "status": "locked",
+    "what": "The 200,000,000 airdrop pool, moved out of the source wallet and into an escrow nobody can cancel, before the first checkpoint.",
+    "program": "LocpQgucEQHbqNABEYvBvwoxCPsSbG91A1QaQhQQqjn",
+    "programName": "Jupiter Lock (open source, audited by OtterSec and Sec3)",
+    "escrow": "EYNGbLQqLpnDNmg8nmMHV1H1TEGhpvD9Nu6cUAM49TYc",
+    "escrowTokenAccount": "kkT8RxudipMHQWicjR3YjgMXqfSiznX4EDnhLwqWH8v",
+    "url": "https://lock.jup.ag/escrow/EYNGbLQqLpnDNmg8nmMHV1H1TEGhpvD9Nu6cUAM49TYc",
+    "amountTokens": 200000000,
+    "lockedAtUtc": "2026-08-05T20:01:11Z",
+    "lockTx": "3KzX1zPPoLP1hpwhiZUK8Rq83HNo7rgAPKodhcGyU9YKS7G9Nb27RXQkKghQ1p13Vj9dXscX2fjsC8PSPuaknT5T",
+    "unlocksAtUtc": "2026-08-20T19:33:54Z",
+    "unlockUnix": 1787254434,
+    "recipient": "CMVYJNuaTrmHw71DTUPZXgtQ3XiV2aYmkJZgdfAw8n4u",
+    "cancelMode": 0,
+    "updateRecipientMode": 0,
+    "irrevocable": true,
+    "note": "Read the escrow account yourself: cancel_mode is 0 and update_recipient_mode is 0, which means nobody - including whoever created it - can cancel the lock, claw it back, or redirect it. cliff_unlock_amount is the full 200,000,000 and amount_per_period is 0, so it releases in one piece on 20 August at 19:33:54 UTC and not before. That is 2.16 days after the window closes, deliberately: the pool cannot move until after everyone has been measured.",
+    "whatItDoesNotProve": "It proves the pool cannot be moved before 20 August. It does not, and cannot, prove the distribution will happen - the tokens return to the source wallet at unlock, because sending them out requires custody. What is committed is in this file, in public, with a timestamp.",
+    "verify": "solana account EYNGbLQqLpnDNmg8nmMHV1H1TEGhpvD9Nu6cUAM49TYc   # or read it at the url above"
+  }
 }

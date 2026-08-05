@@ -2107,7 +2107,8 @@ WALLET</b></div>
           <div><span class="k">Checkpoints</span><span class="v"><span id="clCps">—</span> · times undisclosed, committed below</span></div>
           <div><span class="k">Final measurement</span><span class="v"><span id="clClose">—</span> · public · hold to here</span></div>
           <div><span class="k">Window</span><span class="v"><span id="clWindow">—</span></span></div>
-          <div><span class="k">Excluded</span><span class="v">the pumpswap pool vault · the source wallet</span></div>
+          <div><span class="k">Pool custody</span><span class="v"><a id="clLockLink" href="#" target="_blank" rel="noopener"><span id="clLock">—</span></a> · <span id="clLockNote">—</span></span></div>
+          <div><span class="k">Excluded</span><span class="v"><span id="clExcl">—</span></span></div>
           <div><span class="k">Dust floor</span><span class="v"><span id="clDust">—</span> $115792 minimum to qualify</span></div>
         </div>
 
@@ -2797,7 +2798,7 @@ var live={priceUsd:null,priceNative:null,solUsd:null,resBase:null,resQuote:null,
 
 /* ---------- console colophon ---------- */
 try{
-console.log("%cCOINKITE · $115792 · build 2026-08-05-c","font:600 20px Georgia,serif;color:#d97757");
+console.log("%cCOINKITE · $115792 · build 2026-08-05-d","font:600 20px Georgia,serif;color:#d97757");
 console.log("%cThere are "+THE_NUMBER+" possible private keys.\nStatistically, nobody will ever find yours.\nUnless your firmware is from March 2021.\n\nThe number held. The dice were loaded.\nn = FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE BAAEDCE6 AF48A03B BFD25E8C D0364141","font:12px 'IBM Plex Mono',monospace;color:#5e5d59");
 }catch(e){}
 
@@ -4227,6 +4228,25 @@ function paintAirdrop(){
   set("#clCps",AIR.checkpointCount!=null?AIR.checkpointCount:"—");
   set("#clDust",AIR.dustFloorTokens!=null?AIR.dustFloorTokens.toLocaleString("en-US"):"—");
   set("#clCommit",AIR.commitment||"—");
+  /* the pool's custody: an escrow nobody can cancel, published so it can be
+     read rather than believed */
+  var L=AIR.lock;
+  if(L&&L.escrow){
+    set("#clLock",L.escrow.slice(0,4)+"…"+L.escrow.slice(-4));
+    var ll=$("#clLockLink");if(ll)ll.href=L.url||("https://solscan.io/account/"+L.escrow);
+    var u=L.unlocksAtUtc?new Date(L.unlocksAtUtc):null;
+    set("#clLockNote",(L.amountTokens?fmtCompact(L.amountTokens)+" locked · ":"")+
+      "irrevocable"+(u?" until "+u.toLocaleDateString("en-US",{month:"short",day:"numeric"})+
+      " "+u.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC":""));
+  }else{ var lr=$("#clLock");if(lr&&lr.closest("div"))lr.closest("div").style.display="none" }
+  /* the exclusion list writes itself out of the data, so the page cannot
+     claim an exclusion the file does not actually contain */
+  var xd=AIR.excludedDetail||[];
+  if(xd.length){
+    var seen={},labels=[];
+    xd.forEach(function(x){if(x.label&&!seen[x.label]){seen[x.label]=1;labels.push(x.label)}});
+    set("#clExcl",labels.join(" · "));
+  }else set("#clExcl",(AIR.excludedAccounts||[]).length+" accounts, listed in airdrop.json");
   var fm=AIR.finalMeasurement;
   if(fm&&fm.atUtc){
     var fd=new Date(fm.atUtc);
@@ -4288,7 +4308,12 @@ function clCheck(){
   if(!a){box.innerHTML='<p class="claim-msg bad">Paste a Solana wallet address.</p>';return}
   if(!b58ok(a)){box.innerHTML='<p class="claim-msg bad">That is not a valid Solana address — 32 to 44 base58 characters, no 0/O/I/l.</p>';return}
   if(AIR&&(AIR.excludedAccounts||[]).indexOf(a)>=0){
-    box.innerHTML='<p class="claim-msg bad">That is the pool vault. It is excluded, for reasons that should be obvious.</p>';return}
+    /* several kinds of address are excluded now, so say which one this is
+       rather than calling everything the pool vault */
+    var det=(AIR.excludedDetail||[]).filter(function(x){return x.address===a})[0];
+    var why=det?esc(det.label)+". "+esc(det.note)
+               :"That account is on the exclusion list published in airdrop.json.";
+    box.innerHTML='<p class="claim-msg bad">Excluded — '+why+'</p>';return}
   box.innerHTML='<p class="claim-msg">reading the chain…</p>';
   rpc("getTokenAccountsByOwner",[a,{mint:MINT},{encoding:"jsonParsed"}])
   .then(function(r){
