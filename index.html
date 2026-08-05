@@ -1296,6 +1296,11 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
 }
 .x-btn svg{width:44%;height:44%;fill:currentColor;position:relative;z-index:1;transition:transform .6s var(--ease-in-out-quart)}
 .x-btn:hover{background:#000;box-shadow:0 10px 26px rgba(20,20,19,.34)}
+/* the generic a:hover{color:accent} outranks .x-btn{color:#fff} and turns the
+   glyph clay on hover. Pin it back — these buttons own their own colour. */
+.x-btn:hover,.x-btn:focus{color:#fff}
+.theme-inverted .x-btn:hover,.theme-inverted .x-btn:focus{color:var(--slate-1000)}
+.theme-inverted .tg-btn:hover,.theme-inverted .tg-btn:focus{color:#fff}
 .x-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 /* rotating conic glow ring */
 .x-btn::after{content:"";position:absolute;inset:-3px;border-radius:inherit;z-index:0;
@@ -1314,6 +1319,41 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
   font-family:var(--font-sans);font-weight:600;font-size:var(--body-2);letter-spacing:.01em}
 .x-btn--lg svg{width:1.25em;height:1.25em}
 .x-btn--lg .at{opacity:.7;font-weight:500}
+/* the blurred ring paints above bare text nodes — keep the label in the icon's layer */
+.x-btn--lg .txt,.x-btn--lg .at{position:relative;z-index:1}
+
+/* ---------- Telegram · same chassis as .x-btn, its own flight path ---------- */
+.tg-btn:hover{background:#229ED9;box-shadow:0 10px 26px rgba(34,158,217,.42)}
+.theme-inverted .tg-btn:hover{background:#229ED9;color:#fff}
+/* the conic ring leans telegram-blue instead of clay */
+.tg-btn::after{background:conic-gradient(from 0deg,#229ED9,#5fc9f3,var(--sky),#229ED9)}
+/* the plane does not spin like the X glyph — it launches and comes back around.
+   it fades at the extremes so it never needs clipping, which would kill the glow ring. */
+@media (prefers-reduced-motion:no-preference){
+  .tg-btn:hover svg{transform:none;animation:tgfly .82s var(--ease-in-out-quart)}
+}
+@keyframes tgfly{
+  0%  {transform:translate(0,0) rotate(0);opacity:1}
+  38% {transform:translate(150%,-150%) rotate(14deg);opacity:0}
+  39% {transform:translate(-150%,150%) rotate(-14deg);opacity:0}
+  100%{transform:translate(0,0) rotate(0);opacity:1}
+}
+/* the plane sits fractionally low in its own box — nudge it optically centred */
+.tg-btn svg{transform-origin:50% 50%;margin:-2% 0 0 -2%}
+
+/* ---------- glow ring fix for the wide pills ----------
+   .x-btn:hover::after rotates the ::after BOX. On a circular button that is
+   invisible; on a 392x58 pill it sweeps a huge blurred X across the page.
+   Animate the gradient's start angle instead, so the geometry never moves. */
+@property --ring{syntax:"<angle>";initial-value:0deg;inherits:false}
+.x-btn--lg::after{filter:blur(10px);
+  background:conic-gradient(from var(--ring),var(--clay),var(--sky),var(--olive),var(--clay))}
+.x-btn--lg.tg-btn::after{
+  background:conic-gradient(from var(--ring),#229ED9,#5fc9f3,var(--sky),#229ED9)}
+@media (prefers-reduced-motion:no-preference){
+  .x-btn--lg:hover::after{animation:ringspin 3.2s linear infinite}
+}
+@keyframes ringspin{from{--ring:0deg}to{--ring:360deg}}
 
 /* ============================================================
    WAVE LEDGER · one row per attack wave, bar scaled to BTC
@@ -1509,6 +1549,9 @@ WALLET</b></div>
       </button>
       <a class="x-btn x-btn-head" href="https://x.com/1115792dev" target="_blank" rel="noopener" aria-label="COINKITE on X (opens in new tab)">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a class="x-btn tg-btn" href="https://t.me/COINKITEonSOL" target="_blank" rel="noopener" aria-label="COINKITE on Telegram (opens in new tab)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931l3.622-16.972c.321-1.496-.541-2.081-1.527-1.714L1.114 10.257c-1.458.564-1.437 1.374-.249 1.741l5.443 1.693L18.884 5.83c.585-.388 1.12-.174.679.214z"/></svg>
       </a>
       <a class="btn btn-primary head-cta" href="https://pump.fun/coin/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Acquire</a>
     </div>
@@ -2057,11 +2100,16 @@ WALLET</b></div>
         <p class="foot-legal" style="margin-top:1rem">Probability this page guesses your private key: 1 / 115,792,089,237,316,195,423,570,985,008,687,907,853,269,984,665,640,564,039,457,584,007,913,129,639,936. Unless.</p>
       </div>
       <div>
-        <a class="x-btn x-btn--lg" href="https://x.com/1115792dev" target="_blank" rel="noopener" aria-label="Follow 1115792dev on X (opens in new tab)" style="margin-bottom:1.3rem">
+        <a class="x-btn x-btn--lg" href="https://x.com/1115792dev" target="_blank" rel="noopener" aria-label="Follow 1115792dev on X (opens in new tab)" style="margin-bottom:.7rem">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Follow on X <span class="at">@1115792dev</span>
+          <span class="txt">Follow on X</span> <span class="at">@1115792dev</span>
+        </a>
+        <a class="x-btn x-btn--lg tg-btn" href="https://t.me/COINKITEonSOL" target="_blank" rel="noopener" aria-label="Join the COINKITE Telegram (opens in new tab)" style="margin-bottom:1.3rem">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931l3.622-16.972c.321-1.496-.541-2.081-1.527-1.714L1.114 10.257c-1.458.564-1.437 1.374-.249 1.741l5.443 1.693L18.884 5.83c.585-.388 1.12-.174.679.214z"/></svg>
+          <span class="txt">Join the Telegram</span> <span class="at">@COINKITEonSOL</span>
         </a>
         <ul class="foot-list">
+          <li><a href="https://t.me/COINKITEonSOL" target="_blank" rel="noopener">Telegram <span class="nudge">↗</span></a></li>
           <li><a href="https://pump.fun/coin/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">pump.fun <span class="nudge">↗</span></a></li>
           <li><a href="https://dexscreener.com/solana/cw959iwe22ev8rvfmxrkeqexowuoo8v4bhmpjkuebmvv" target="_blank" rel="noopener">DexScreener <span class="nudge">↗</span></a></li>
           <li><a href="https://solscan.io/token/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Solscan <span class="nudge">↗</span></a></li>
