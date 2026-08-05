@@ -1829,8 +1829,6 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
 .ad-block{background:var(--role-card);border-radius:var(--r-16);
   box-shadow:inset 0 0 0 1px var(--role-hairline);
   padding:clamp(1.2rem,3vw,1.9rem);min-width:0}
-.ad-block__k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.14em;
-  text-transform:uppercase;color:var(--role-accent);margin:0 0 1rem}
 .ad-block .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;
   line-height:var(--lh-125);letter-spacing:-.01em;margin:0 0 .7rem;text-wrap:balance}
 .ad-block > p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
@@ -1855,6 +1853,16 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
   .tiers,#s2Tiers{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
+
+/* Belt and braces: anything inside an OPEN accordion is visible, full stop.
+   [data-reveal] starts at opacity:0 and relies on an IntersectionObserver that
+   cannot fire inside a zero-height panel; accWake() force-reveals on open, but
+   if that JS is ever missed the content would be present in the DOM and simply
+   invisible — the worst possible failure. This makes that impossible in CSS. */
+.acc[data-open] [data-reveal],
+.acc[data-open] [data-cascade] > *{opacity:1!important;transform:none!important}
+.acc[data-open] .ad-blocks,
+.acc[data-open] .ad-block{opacity:1!important;visibility:visible!important}
 </style>
 </head>
 <body>
@@ -2048,7 +2056,6 @@ WALLET</b></div>
     <div class="ad-blocks">
   <!-- 1 · how it works -->
   <section class="ad-block" data-reveal>
-    <p class="ad-block__k">01 · how it works</p>
 
         <p class="big">One base, one multiplier.</p>
         <p><strong>The base — what you're measured on.</strong> Five checkpoints land at undisclosed times inside the window, and a sixth measurement is taken at the close, whose time is public. Your base is the <em>minimum</em> balance across the anchor slot, every checkpoint, and the close. Sell at any point and it is permanently capped at that trough, including at the checkpoints you haven't seen yet. Claim-and-dump pays you what you dumped to.</p>
@@ -2062,7 +2069,6 @@ WALLET</b></div>
 
   <!-- 2 · the terms, the proof, and the checker -->
   <section class="ad-block" data-reveal>
-    <p class="ad-block__k">02 · the terms &amp; the proof</p>
     <div class="ad-two">
       <div class="ad-two__a">
 <div class="ad-facts">
@@ -2102,7 +2108,6 @@ WALLET</b></div>
 
   <!-- 3 · season two -->
   <section class="ad-block" data-reveal>
-    <p class="ad-block__k">03 · season two</p>
 
       <h3>Season two, and why you're being told about it now</h3>
       <p class="sub" style="max-width:66ch">An airdrop normally gets sold within the hour, because a token you were handed for free has no anchor holding it down. So here is the rule for the next one, published before this one has even landed: <strong>your season-two weight counts what you still hold of season one</strong>. Up to fifty per cent of circulating supply sits behind that rule.</p>
