@@ -1055,6 +1055,25 @@ body.degen .numberbelt__track{animation-duration:16s}
 .claim-commit .lab{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.13em;text-transform:uppercase;color:var(--slate-450);display:block;margin-bottom:.5rem}
 .claim-commit code{font-family:var(--font-mono);font-size:var(--caption);color:#8fd0a0;word-break:break-all;line-height:1.55;display:block}
 .claim-commit .note{display:block;margin-top:.7rem;font-size:var(--agate);color:var(--slate-500);text-wrap:pretty;line-height:1.5}
+/* every account the mechanism touches, generated from airdrop.json */
+.claim-addrs{margin-top:1.1rem;background:var(--slate-1000);border-radius:var(--r-12);padding:1rem 1.1rem;overflow:hidden}
+.claim-addrs .lab{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--slate-450);display:block;margin-bottom:.6rem}
+.claim-addrs .note{display:block;margin-top:.8rem;font-size:var(--agate);color:var(--slate-500);text-wrap:pretty;line-height:1.5}
+.claim-addr{display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr);gap:.7rem;
+  padding:.42rem 0;border-top:1px solid rgba(245,244,237,.09);align-items:baseline}
+.claim-addr:first-child{border-top:0;padding-top:0}
+.claim-addr .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.04em;
+  color:var(--slate-450);min-width:0;text-wrap:nowrap;overflow:hidden;text-overflow:ellipsis}
+.claim-addr .v{min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .55rem}
+/* inline-flex so the underline hugs the address instead of the whole column */
+.claim-addr .a{display:inline-flex;align-items:baseline;gap:.28rem;font-size:var(--caption);color:#8fd0a0;
+  text-decoration:none;border-bottom:1px solid rgba(143,208,160,.32);min-width:0}
+.claim-addr .a:hover{border-bottom-color:#8fd0a0}
+.claim-addr .n{font-size:var(--agate);color:var(--slate-500);min-width:0}
+@media (max-width:560px){
+  .claim-addr{grid-template-columns:minmax(0,1fr);gap:.1rem;padding:.55rem 0}
+}
 /* the checker */
 .claim-check{background:var(--role-card);box-shadow:inset 0 0 0 1px var(--role-hairline);border-radius:var(--r-16);padding:clamp(1.2rem,3vw,1.8rem)}
 .claim-check h3{font-size:var(--headline-3);margin:0 0 .5rem}
@@ -2118,6 +2137,12 @@ WALLET</b></div>
           <span class="note">This hashes the five checkpoint timestamps and a secret nonce. The times stay secret so nobody can trade around them; the hash proves they were fixed in advance. When the window closes, the timestamps and nonce get published — hash them yourself and they must equal the string above. Cherry-picking after the fact is not possible without breaking SHA-256, which would be a considerably bigger story than this token.</span>
         </div>
 
+        <div class="claim-addrs">
+          <span class="lab">Every address this depends on</span>
+          <div id="clAddrList"></div>
+          <span class="note">The whole mechanism is six accounts and a hash. Nothing here asks you to trust a screenshot — open any of them and check the balance yourself. The list is generated from <span class="mono">airdrop.json</span>, so the page cannot show an exclusion the terms do not contain.</span>
+        </div>
+
         <div class="claim-window">
           <span class="sigpair" aria-hidden="true"><i></i><i></i></span>
           <span id="clStatus">status —</span>
@@ -2798,7 +2823,7 @@ var live={priceUsd:null,priceNative:null,solUsd:null,resBase:null,resQuote:null,
 
 /* ---------- console colophon ---------- */
 try{
-console.log("%cCOINKITE · $115792 · build 2026-08-05-d","font:600 20px Georgia,serif;color:#d97757");
+console.log("%cCOINKITE · $115792 · build 2026-08-05-e","font:600 20px Georgia,serif;color:#d97757");
 console.log("%cThere are "+THE_NUMBER+" possible private keys.\nStatistically, nobody will ever find yours.\nUnless your firmware is from March 2021.\n\nThe number held. The dice were loaded.\nn = FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE BAAEDCE6 AF48A03B BFD25E8C D0364141","font:12px 'IBM Plex Mono',monospace;color:#5e5d59");
 }catch(e){}
 
@@ -2976,16 +3001,38 @@ function setStat(id,html){
 }
 
 /* ---------- RPC helper with rotation ---------- */
-var RPCS=["https://solana-rpc.publicnode.com","https://api.mainnet-beta.solana.com","https://solana.drpc.org"];
+/* Two of the three endpoints this used to rotate through are permanently dead:
+   api.mainnet-beta.solana.com answers 403 to browser traffic, and
+   solana.drpc.org now returns "chain is not available on free plan". Worse,
+   the old code advanced rpcIdx on ANY failure anywhere on the page and then
+   reported the error to the user — so one blip in the pool widget parked every
+   later call on a dead endpoint. That is why the address checker failed for
+   people roughly two attempts in three.
+   A call now walks the whole list before it is allowed to fail, and only
+   sticks to an endpoint that actually answered. */
+var RPCS=["https://solana.leorpc.com/?api_key=FREE","https://solana-rpc.publicnode.com"];
 var rpcIdx=0;
-function rpc(method,params){
-  var url=RPCS[rpcIdx%RPCS.length];
+function rpcOnce(url,method,params,ms){
   var ctl=("AbortController" in window)?new AbortController():null;
-  if(ctl)setTimeout(function(){ctl.abort()},9000);
+  var t=ctl?setTimeout(function(){ctl.abort()},ms||8000):null;
   return fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl&&ctl.signal,
     body:JSON.stringify({jsonrpc:"2.0",id:1,method:method,params:params})})
-  .then(function(r){if(!r.ok)throw new Error("http "+r.status);return r.json()})
+  .then(function(r){if(t)clearTimeout(t);if(!r.ok)throw new Error("http "+r.status);return r.json()})
   .then(function(j){if(j.error)throw new Error(j.error.message||"rpc error");return j.result});
+}
+function rpc(method,params){
+  var order=RPCS.slice(rpcIdx).concat(RPCS.slice(0,rpcIdx)),i=0;
+  var attempt=function(){
+    return rpcOnce(order[i],method,params).then(function(res){
+      rpcIdx=RPCS.indexOf(order[i]);      /* stay on whatever answered */
+      return res;
+    },function(err){
+      i++;
+      if(i>=order.length)throw err;       /* only fail once every endpoint has */
+      return attempt();
+    });
+  };
+  return attempt();
 }
 
 /* ---------- market data · DexScreener ---------- */
@@ -4239,6 +4286,31 @@ function paintAirdrop(){
       "irrevocable"+(u?" until "+u.toLocaleDateString("en-US",{month:"short",day:"numeric"})+
       " "+u.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC":""));
   }else{ var lr=$("#clLock");if(lr&&lr.closest("div"))lr.closest("div").style.display="none" }
+  /* every account the mechanism touches, in one place, each one openable.
+     Built from the data rather than typed into the markup so the page cannot
+     show an address the terms do not actually contain. */
+  var al=$("#clAddrList");
+  if(al){
+    /* short labels on purpose — a wrapping key column turns seven rows into
+       a wall. Role first, "token acct" marks the inner account. */
+    var short={"the pumpswap pool vault":"Pool vault","the pool's token account":"Pool · token acct",
+      "the source wallet":"Source wallet","the source wallet's token account":"Source · token acct",
+      "the airdrop lock escrow":"Lock escrow","the lock's token account":"Lock · token acct"};
+    var rows=[{a:MINT,k:"Mint",n:"the token"}];
+    if(L&&L.escrow)rows.push({a:L.escrow,k:"Lock escrow",n:"holds the pool · irrevocable · excluded"});
+    if(L&&L.escrowTokenAccount)rows.push({a:L.escrowTokenAccount,k:"Lock · token acct",n:"the 200M sits here · excluded"});
+    (AIR.excludedDetail||[]).forEach(function(x){
+      if(L&&(x.address===L.escrow||x.address===L.escrowTokenAccount))return;
+      rows.push({a:x.address,k:short[x.label]||x.label,n:"excluded"});
+    });
+    al.innerHTML=rows.map(function(r){
+      return '<div class="claim-addr">'+
+        '<span class="k">'+esc(r.k)+'</span>'+
+        '<span class="v"><a class="a mono" href="https://solscan.io/account/'+encodeURIComponent(r.a)+'" target="_blank" rel="noopener" title="'+esc(r.a)+'">'+
+          esc(r.a.slice(0,6))+'…'+esc(r.a.slice(-6))+'<span class="nudge">↗</span></a>'+
+        '<span class="n">'+esc(r.n)+'</span></span></div>';
+    }).join("");
+  }
   /* the exclusion list writes itself out of the data, so the page cannot
      claim an exclusion the file does not actually contain */
   var xd=AIR.excludedDetail||[];
@@ -4339,8 +4411,13 @@ function clCheck(){
       '<p class="claim-msg">Live read · nothing submitted, nothing stored. <a href="https://solscan.io/account/'+a+'" target="_blank" rel="noopener">Open on Solscan <span class="nudge">↗</span></a></p>';
     if(ok&&motionOK){var r2=box.getBoundingClientRect();laughBurst(r2.left+r2.width/2,r2.top+40,5,false)}
   })
-  .catch(function(){rpcIdx++;
-    box.innerHTML='<p class="claim-msg bad">RPC did not answer — public endpoints rate-limit. Try again in a moment, or check it on Solscan.</p>';});
+  .catch(function(){
+    /* every endpoint has already been tried by this point, so do not tell
+       people to retry into the same wall — send them somewhere that works */
+    box.innerHTML='<p class="claim-msg bad">No public RPC answered — they rate-limit, and this is the one thing on the page that needs one. '+
+      'Your balance is the number that matters and you can read it yourself: '+
+      '<a href="https://solscan.io/account/'+encodeURIComponent(a)+'#portfolio" target="_blank" rel="noopener">open this address on Solscan <span class="nudge">↗</span></a>. '+
+      'Nothing about your allocation depends on this checker working.</p>';});
 }
 
 /* ---------- X buttons · magnetic follow + 3D tilt (pointer-fine, motion-safe) ---------- */
