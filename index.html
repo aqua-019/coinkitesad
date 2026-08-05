@@ -1040,43 +1040,43 @@ body.degen .numberbelt__track{animation-duration:16s}
    checkpoints (undumpable, verifiable). GA10 register, D3144
    custom-property meter, D3116 anchored feedback.
    ============================================================ */
-.ad-grid{display:grid;gap:var(--space-medium);grid-template-columns:1fr;margin-top:var(--space-medium)}
-@media (min-width:992px){ .ad-grid{grid-template-columns:6fr 6fr;align-items:start} }
-.ad-rule{background:var(--role-card);box-shadow:inset 0 0 0 1px var(--role-hairline);border-radius:var(--r-16);padding:clamp(1.2rem,3vw,1.8rem)}
-.ad-rule .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;line-height:var(--lh-125);letter-spacing:-.01em;margin:0 0 .7rem;text-wrap:balance}
-.ad-rule p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
-.ad-rule p:last-child{margin-bottom:0}
-.ad-facts{display:grid;gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);border-radius:var(--r-12);overflow:hidden;margin-top:1.1rem}
-.ad-facts > div{background:var(--role-ground);padding:.85rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:baseline}
-.ad-facts .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.12em;text-transform:uppercase;color:var(--role-ink-3);min-width:9.5rem}
-.ad-facts .v{font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink);overflow-wrap:anywhere;flex:1}
-.ad-facts .v a{color:var(--role-accent)}
-.ad-commit{margin-top:1.1rem;background:var(--slate-1000);border-radius:var(--r-12);padding:1rem 1.1rem;overflow:hidden}
-.ad-commit .lab{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.13em;text-transform:uppercase;color:var(--slate-450);display:block;margin-bottom:.5rem}
-.ad-commit code{font-family:var(--font-mono);font-size:var(--caption);color:#8fd0a0;word-break:break-all;line-height:1.55;display:block}
-.ad-commit .note{display:block;margin-top:.7rem;font-size:var(--agate);color:var(--slate-500);text-wrap:pretty;line-height:1.5}
+.claim-grid{display:grid;gap:var(--space-medium);grid-template-columns:1fr;margin-top:var(--space-medium)}
+@media (min-width:992px){ .claim-grid{grid-template-columns:6fr 6fr;align-items:start} }
+.claim-rule{background:var(--role-card);box-shadow:inset 0 0 0 1px var(--role-hairline);border-radius:var(--r-16);padding:clamp(1.2rem,3vw,1.8rem)}
+.claim-rule .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;line-height:var(--lh-125);letter-spacing:-.01em;margin:0 0 .7rem;text-wrap:balance}
+.claim-rule p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
+.claim-rule p:last-child{margin-bottom:0}
+.claim-facts{display:grid;gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);border-radius:var(--r-12);overflow:hidden;margin-top:1.1rem}
+.claim-facts > div{background:var(--role-ground);padding:.85rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem 1rem;align-items:baseline}
+.claim-facts .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.12em;text-transform:uppercase;color:var(--role-ink-3);min-width:9.5rem}
+.claim-facts .v{font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink);overflow-wrap:anywhere;flex:1}
+.claim-facts .v a{color:var(--role-accent)}
+.claim-commit{margin-top:1.1rem;background:var(--slate-1000);border-radius:var(--r-12);padding:1rem 1.1rem;overflow:hidden}
+.claim-commit .lab{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.13em;text-transform:uppercase;color:var(--slate-450);display:block;margin-bottom:.5rem}
+.claim-commit code{font-family:var(--font-mono);font-size:var(--caption);color:#8fd0a0;word-break:break-all;line-height:1.55;display:block}
+.claim-commit .note{display:block;margin-top:.7rem;font-size:var(--agate);color:var(--slate-500);text-wrap:pretty;line-height:1.5}
 /* the checker */
-.ad-check{background:var(--role-card);box-shadow:inset 0 0 0 1px var(--role-hairline);border-radius:var(--r-16);padding:clamp(1.2rem,3vw,1.8rem)}
-.ad-check h3{font-size:var(--headline-3);margin:0 0 .5rem}
-.ad-check .sub{font-size:var(--caption);color:var(--role-ink-3);margin:0 0 1.1rem;text-wrap:pretty}
-.ad-form{display:flex;gap:.6rem;flex-wrap:wrap}
-.ad-form input{flex:1 1 15rem;min-width:0;background:var(--role-card-2);border:0;box-shadow:inset 0 0 0 1px var(--role-hairline-2);
+.claim-check{background:var(--role-card);box-shadow:inset 0 0 0 1px var(--role-hairline);border-radius:var(--r-16);padding:clamp(1.2rem,3vw,1.8rem)}
+.claim-check h3{font-size:var(--headline-3);margin:0 0 .5rem}
+.claim-check .sub{font-size:var(--caption);color:var(--role-ink-3);margin:0 0 1.1rem;text-wrap:pretty}
+.claim-form{display:flex;gap:.6rem;flex-wrap:wrap}
+.claim-form input{flex:1 1 15rem;min-width:0;background:var(--role-card-2);border:0;box-shadow:inset 0 0 0 1px var(--role-hairline-2);
   border-radius:var(--r-max);padding:.85em 1.15em;font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink);outline:none}
-.ad-form input:focus-visible{box-shadow:inset 0 0 0 1px var(--focus)}
-.ad-form input::placeholder{color:var(--role-ink-3)}
-.ad-result{margin-top:1.1rem;min-height:2rem}
-.ad-result[hidden]{display:none}
-.ad-stat{display:grid;gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);border-radius:var(--r-12);overflow:hidden}
-.ad-stat > div{background:var(--role-ground);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.3rem}
-.ad-stat .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.12em;text-transform:uppercase;color:var(--role-ink-3)}
-.ad-stat .v{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;line-height:1;letter-spacing:-.01em}
-.ad-stat .v.ok{color:var(--role-gain)} .ad-stat .v.no{color:var(--role-loss)}
-.ad-stat .s{font-size:var(--caption);color:var(--role-ink-3);text-wrap:pretty}
-.ad-msg{font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink-3);padding:.6rem 0}
-.ad-msg.bad{color:var(--role-loss)}
-.ad-window{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.3rem;margin-top:1.1rem;
+.claim-form input:focus-visible{box-shadow:inset 0 0 0 1px var(--focus)}
+.claim-form input::placeholder{color:var(--role-ink-3)}
+.claim-result{margin-top:1.1rem;min-height:2rem}
+.claim-result[hidden]{display:none}
+.claim-stat{display:grid;gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);border-radius:var(--r-12);overflow:hidden}
+.claim-stat > div{background:var(--role-ground);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.3rem}
+.claim-stat .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.12em;text-transform:uppercase;color:var(--role-ink-3)}
+.claim-stat .v{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;line-height:1;letter-spacing:-.01em}
+.claim-stat .v.ok{color:var(--role-gain)} .claim-stat .v.no{color:var(--role-loss)}
+.claim-stat .s{font-size:var(--caption);color:var(--role-ink-3);text-wrap:pretty}
+.claim-msg{font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink-3);padding:.6rem 0}
+.claim-msg.bad{color:var(--role-loss)}
+.claim-window{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.3rem;margin-top:1.1rem;
   font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.1em;text-transform:uppercase;color:var(--role-ink-3)}
-.ad-window .live{color:var(--role-gain)}
+.claim-window .live{color:var(--role-gain)}
 
 /* ============================================================
    THE COLD OPEN · splash sequence
@@ -1498,42 +1498,42 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
 .tier.bonus .m{color:var(--role-gain)}
 .tier.bonus{background:color-mix(in oklab,var(--role-gain) 7%,var(--role-ground))}
 
-.ad-cta{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.2rem}
-.ad-cta .hint{font-family:var(--font-mono);font-size:var(--agate);color:var(--role-ink-3)}
+.claim-cta{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.2rem}
+.claim-cta .hint{font-family:var(--font-mono);font-size:var(--agate);color:var(--role-ink-3)}
 
 /* modal */
-.adm{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:clamp(1rem,4vw,2.5rem);
+.sheet{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:clamp(1rem,4vw,2.5rem);
   opacity:0;pointer-events:none}
-.adm[data-open]{pointer-events:auto}
-.adm-scrim{position:absolute;inset:0;background:rgba(12,12,11,.55);opacity:0;
+.sheet[data-open]{pointer-events:auto}
+.sheet-scrim{position:absolute;inset:0;background:rgba(12,12,11,.55);opacity:0;
   transition:opacity .42s var(--ease-out-quart)}
-.adm[data-open] .adm-scrim{opacity:1}
-.adm-panel{position:relative;width:min(46rem,100%);max-width:100%;min-width:0;max-height:calc(100dvh - 3rem);overflow-y:auto;overscroll-behavior:contain;
+.sheet[data-open] .sheet-scrim{opacity:1}
+.sheet-panel{position:relative;width:min(46rem,100%);max-width:100%;min-width:0;max-height:calc(100dvh - 3rem);overflow-y:auto;overscroll-behavior:contain;
   background:var(--role-ground);border-radius:var(--r-16);padding:clamp(1.3rem,3.4vw,2rem);
   box-shadow:0 40px 90px -20px rgba(0,0,0,.5),inset 0 0 0 1px var(--role-hairline);
   opacity:0;transform:translateY(16px) scale(.975)}
-.adm-glow{position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;
+.sheet-glow{position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;
   background:radial-gradient(60% 70% at 50% 0%,color-mix(in oklab,var(--clay) 70%,transparent),transparent 70%);
   filter:blur(18px)}
-.adm-x{position:absolute;top:.85rem;right:.85rem;width:2.1rem;height:2.1rem;border:0;border-radius:var(--r-max);
+.sheet-x{position:absolute;top:.85rem;right:.85rem;width:2.1rem;height:2.1rem;border:0;border-radius:var(--r-max);
   background:var(--role-card-2);color:var(--role-ink-2);font-size:1rem;line-height:1;cursor:pointer;
   display:grid;place-items:center;transition:background .2s var(--ease-out-quart),transform .2s var(--ease-out-quart)}
-.adm-x:hover{background:var(--role-hairline);transform:rotate(90deg)}
-.adm-title{font-size:var(--headline-2,1.6rem);font-weight:600;letter-spacing:-.015em;margin:0 0 .4rem;padding-right:2.5rem}
+.sheet-x:hover{background:var(--role-hairline);transform:rotate(90deg)}
+.sheet-title{font-size:var(--headline-2,1.6rem);font-weight:600;letter-spacing:-.015em;margin:0 0 .4rem;padding-right:2.5rem}
 /* No backdrop-filter here, deliberately. Blurring the live page behind the
    scrim re-composites the entire viewport on every frame anything beneath it
    moves, and with skeleton shimmers plus the marquees that is constant — it
    pinned desktop at 16-21fps and was worse on phones. The panel still arrives
    out of a blur (one small element, GPU-cheap); the page just dims. */
-.adm-scrim{background:rgba(12,12,11,.72)}
-html.adm-on body > *:not(.adm),
-html.adm-on body > *:not(.adm) *{animation-play-state:paused!important}
-.adm-panel{filter:blur(6px)}
-.adm[data-open] .adm-panel{filter:blur(0);transition:filter .44s var(--ease-out-quart)}
-@media (prefers-reduced-motion:reduce){.adm-panel{filter:none}}
+.sheet-scrim{background:rgba(12,12,11,.72)}
+html.sheet-on body > *:not(.sheet),
+html.sheet-on body > *:not(.sheet) *{animation-play-state:paused!important}
+.sheet-panel{filter:blur(6px)}
+.sheet[data-open] .sheet-panel{filter:blur(0);transition:filter .44s var(--ease-out-quart)}
+@media (prefers-reduced-motion:reduce){.sheet-panel{filter:none}}
 @media (prefers-reduced-motion:reduce){
-  .adm-scrim{transition:none}
-  .adm-panel{transform:none}
+  .sheet-scrim{transition:none}
+  .sheet-panel{transform:none}
 }
 
 /* secret entropy panel */
@@ -1670,7 +1670,7 @@ html.adm-on body > *:not(.adm) *{animation-play-state:paused!important}
   .feed .chip{font-size:.6rem;padding:.2em .5em}
 }
 /* a locked body must not let a stray overflow widen the layout viewport */
-html.adm-on body{overflow-x:clip}
+html.sheet-on body{overflow-x:clip}
 
 /* ============================================================
    ACCORDION SECTIONS · every section collapses behind one row.
@@ -1735,7 +1735,11 @@ html.adm-on body{overflow-x:clip}
    !important because this MUST beat .acc[data-open] .acc__inner — equal
    specificity means it currently only wins on source order, and any rule
    added below it would silently resurrect a permanent filter. */
-.acc.is-settled .acc__inner{filter:none!important}
+.acc.is-settled .acc__inner{filter:none!important;
+  /* drop filter from the transition list so it snaps to none instead of
+     interpolating blur(0px) -> none, which keeps the layer alive half a
+     second longer for no visible benefit */
+  transition:opacity .42s var(--ease-out-quart)}
 /* A filter — including blur(0px), which is not free and still forces a
    rasterised layer — makes the browser paint the panel into ONE texture.
    iOS Safari caps that texture around 4096px and paints nothing past it, so
@@ -1819,7 +1823,7 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
 
 /* the TL;DR should not be a scroll marathon on a phone */
 @media (max-width:600px){
-  .adm-panel{padding:1.05rem 1rem 1.2rem}
+  .sheet-panel{padding:1.05rem 1rem 1.2rem}
   .tl-hero{padding:.1rem 0 .8rem;margin-bottom:.9rem}
   .tl-hero .big{font-size:clamp(1.8rem,11vw,2.5rem)}
   .tl-hero .sub{font-size:var(--caption)}
@@ -1840,20 +1844,31 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
 /* ---------- airdrop: three stacked horizontal blocks ----------
    Was a tall left column, a short right column and an orphaned band
    underneath. Now three equal-width bands, each one a whole idea. */
-.ad-blocks{display:flex;flex-direction:column;gap:var(--space-small);margin-top:var(--space-small)}
-.ad-block{background:var(--role-card);border-radius:var(--r-16);
+/* NAMING RULE — do not use an "ad" prefix anywhere on this site.
+   These blocks were originally .ad-block inside .ad-blocks, and EasyList (which
+   Brave, uBlock, AdGuard and every other blocker ship) hides .ad-block, .ad-two,
+   .ad-cta, .ad-result and .ad-msg with generic element-hiding rules. Roughly a
+   third of a crypto audience runs a blocker, and Brave is a default browser for
+   a lot of them, so the entire airdrop section simply did not exist for them:
+   the panel collapsed from 6,087px to 768px. Worse, it failed silently — the
+   markup is present, the console is clean, and it only reproduces with a
+   blocker active on a real hostname (filter engines skip localhost).
+   Anything ad-adjacent — ad, ads, advert, banner, sponsor, promo, popup —
+   is unusable as a class or id here. */
+.claim-stack{display:flex;flex-direction:column;gap:var(--space-small);margin-top:var(--space-small)}
+.claim-card{background:var(--role-card);border-radius:var(--r-16);
   box-shadow:inset 0 0 0 1px var(--role-hairline);
   padding:clamp(1.2rem,3vw,1.9rem);min-width:0}
-.ad-block .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;
+.claim-card .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;
   line-height:var(--lh-125);letter-spacing:-.01em;margin:0 0 .7rem;text-wrap:balance}
-.ad-block > p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
-.ad-block h3{font-size:var(--headline-3);margin:0 0 .5rem}
+.claim-card > p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
+.claim-card h3{font-size:var(--headline-3);margin:0 0 .5rem}
 /* block 2 splits internally: terms and proof on the left, checker on the right */
-.ad-two{display:grid;gap:var(--space-small);grid-template-columns:minmax(0,1fr)}
-@media (min-width:900px){ .ad-two{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start} }
-.ad-two__a,.ad-two__b{min-width:0}
-.ad-two__b{background:var(--role-card-2);border-radius:var(--r-12);padding:clamp(1rem,2.4vw,1.35rem)}
-.ad-two .ad-facts{margin-top:0}
+.claim-split{display:grid;gap:var(--space-small);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){ .claim-split{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start} }
+.claim-split__a,.claim-split__b{min-width:0}
+.claim-split__b{background:var(--role-card-2);border-radius:var(--r-12);padding:clamp(1rem,2.4vw,1.35rem)}
+.claim-split .claim-facts{margin-top:0}
 /* the ladders go horizontal now that they have the full width */
 @media (min-width:820px){
   .tiers{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -1876,8 +1891,8 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
    invisible — the worst possible failure. This makes that impossible in CSS. */
 .acc[data-open] [data-reveal],
 .acc[data-open] [data-cascade] > *{opacity:1!important;transform:none!important}
-.acc[data-open] .ad-blocks,
-.acc[data-open] .ad-block{opacity:1!important;visibility:visible!important}
+.acc[data-open] .claim-stack,
+.acc[data-open] .claim-card{opacity:1!important;visibility:visible!important}
 </style>
 </head>
 <body>
@@ -2060,7 +2075,7 @@ WALLET</b></div>
     <div class="acc__inner">
   <div>
     <p class="eyebrow"><span class="idx">10</span><span>The airdrop · paid on the floor</span></p>
-    <h2 class="headline-1 trim-sans" style="max-width:26ch" data-reveal><span id="adPoolBig">200,000,000</span> tokens, free, paid on your floor.</h2>
+    <h2 class="headline-1 trim-sans" style="max-width:26ch" data-reveal><span id="clPoolBig">200,000,000</span> tokens, free, paid on your floor.</h2>
     <p class="lede prose" style="margin-top:var(--space-small);color:var(--role-ink-2)" data-reveal>Twenty per cent of circulating supply, committed to a fixed pool before the window opened. Anyone holding can qualify — but an entropy failure is a floor problem, a seed is only as strong as the weakest moment in its generation, and this distribution works the same way on purpose. You are not paid on what you hold at some announced instant. You are paid on the <span class="mark">least you ever held</span>, multiplied by how early you were holding it.</p>
 
     <div class="tldr-cta" data-reveal>
@@ -2068,51 +2083,51 @@ WALLET</b></div>
       <span class="hint">the whole thing, no reading</span>
     </div>
 
-    <div class="ad-blocks">
+    <div class="claim-stack">
   <!-- 1 · how it works -->
-  <section class="ad-block" data-reveal>
+  <section class="claim-card" data-reveal>
 
         <p class="big">One base, one multiplier.</p>
         <p><strong>The base — what you're measured on.</strong> Five checkpoints land at undisclosed times inside the window, and a sixth measurement is taken at the close, whose time is public. Your base is the <em>minimum</em> balance across the anchor slot, every checkpoint, and the close. Sell at any point and it is permanently capped at that trough, including at the checkpoints you haven't seen yet. Claim-and-dump pays you what you dumped to.</p>
         <p><strong>So there is a cutoff, and you cannot see it.</strong> Because the base is a minimum across <em>all</em> of those readings, a wallet that arrives after the last secret checkpoint holds zero at the earlier ones — and a minimum containing a zero is zero. Buy late enough and the allocation is not smaller, it is nothing. Nobody knows when that line passes, which is the only honest reason to buy now rather than later.</p>
         <p><strong>The multiplier — when you got here.</strong> The anchor is a slot that had <em>already passed</em> before any of this was published; you cannot farm a block that is behind you. Being there pays triple. Arriving later still pays — just less, on a scale that only goes down.</p>
 
-        <div class="tiers" id="adTiers"></div>
-        <p class="caption" style="margin-top:.8rem" id="adExample">—</p>
+        <div class="tiers" id="clTiers"></div>
+        <p class="caption" style="margin-top:.8rem" id="clExample">—</p>
 
           </section>
 
   <!-- 2 · the terms, the proof, and the checker -->
-  <section class="ad-block" data-reveal>
-    <div class="ad-two">
-      <div class="ad-two__a">
-<div class="ad-facts">
-          <div><span class="k">Pool</span><span class="v"><span id="adPool">—</span> $115792 · <span id="adPoolPct">—</span>% of circulating · hard cap</span></div>
-          <div><span class="k">Anchor slot</span><span class="v"><a id="adSlotLink" href="#" target="_blank" rel="noopener"><span id="adSlot">—</span></a> · <span id="adSlotTime">—</span></span></div>
-          <div><span class="k">Checkpoints</span><span class="v"><span id="adCps">—</span> · times undisclosed, committed below</span></div>
-          <div><span class="k">Final measurement</span><span class="v"><span id="adClose">—</span> · public · hold to here</span></div>
-          <div><span class="k">Window</span><span class="v"><span id="adWindow">—</span></span></div>
+  <section class="claim-card" data-reveal>
+    <div class="claim-split">
+      <div class="claim-split__a">
+<div class="claim-facts">
+          <div><span class="k">Pool</span><span class="v"><span id="clPool">—</span> $115792 · <span id="clPoolPct">—</span>% of circulating · hard cap</span></div>
+          <div><span class="k">Anchor slot</span><span class="v"><a id="clSlotLink" href="#" target="_blank" rel="noopener"><span id="clSlot">—</span></a> · <span id="clSlotTime">—</span></span></div>
+          <div><span class="k">Checkpoints</span><span class="v"><span id="clCps">—</span> · times undisclosed, committed below</span></div>
+          <div><span class="k">Final measurement</span><span class="v"><span id="clClose">—</span> · public · hold to here</span></div>
+          <div><span class="k">Window</span><span class="v"><span id="clWindow">—</span></span></div>
           <div><span class="k">Excluded</span><span class="v">the pumpswap pool vault · the source wallet</span></div>
-          <div><span class="k">Dust floor</span><span class="v"><span id="adDust">—</span> $115792 minimum to qualify</span></div>
+          <div><span class="k">Dust floor</span><span class="v"><span id="clDust">—</span> $115792 minimum to qualify</span></div>
         </div>
 
-        <div class="ad-commit">
+        <div class="claim-commit">
           <span class="lab">Commitment · SHA-256, published before the window opened</span>
-          <code id="adCommit">—</code>
+          <code id="clCommit">—</code>
           <span class="note">This hashes the five checkpoint timestamps and a secret nonce. The times stay secret so nobody can trade around them; the hash proves they were fixed in advance. When the window closes, the timestamps and nonce get published — hash them yourself and they must equal the string above. Cherry-picking after the fact is not possible without breaking SHA-256, which would be a considerably bigger story than this token.</span>
         </div>
 
-        <div class="ad-window">
+        <div class="claim-window">
           <span class="sigpair" aria-hidden="true"><i></i><i></i></span>
-          <span id="adStatus">status —</span>
+          <span id="clStatus">status —</span>
         </div>
             </div>
-      <div class="ad-two__b">
+      <div class="claim-split__b">
 
         <h3>Am I in?</h3>
         <p class="sub">The checker reads the chain live, in your browser. Nothing is submitted, nothing is stored, and no list is kept anywhere — <strong>submitting an address does not make you eligible and never could</strong>. Holding does. It shows what a checkpoint taken <em>right now</em> would record against you, which is the number your allocation tracks downward if you sell.</p>
-        <div class="ad-cta">
-          <button class="btn btn-primary" id="adOpen" type="button">Check an address</button>
+        <div class="claim-cta">
+          <button class="btn btn-primary" id="clOpen" type="button">Check an address</button>
           <span class="hint">no wallet connection, ever</span>
         </div>
         <p class="caption" style="margin-top:1.2rem">Or verify by hand: <span class="mono">getTokenAccountsByOwner</span> against mint <span class="mono">Fwxt…pump</span>. The site is doing nothing you can't do from a terminal — which is the only claim on this page worth making.</p>
@@ -2122,7 +2137,7 @@ WALLET</b></div>
   </section>
 
   <!-- 3 · season two -->
-  <section class="ad-block" data-reveal>
+  <section class="claim-card" data-reveal>
 
       <h3>Season two, and why you're being told about it now</h3>
       <p class="sub" style="max-width:66ch">An airdrop normally gets sold within the hour, because a token you were handed for free has no anchor holding it down. So here is the rule for the next one, published before this one has even landed: <strong>your season-two weight counts what you still hold of season one</strong>. Up to fifty per cent of circulating supply sits behind that rule.</p>
@@ -2677,29 +2692,29 @@ WALLET</b></div>
 </footer>
 
 <!-- ================= AIRDROP CHECKER · MODAL ================= -->
-<div class="adm" id="adm" hidden role="dialog" aria-modal="true" aria-labelledby="admTitle">
-  <div class="adm-scrim" data-adm-close></div>
-  <div class="adm-panel" role="document">
-    <span class="adm-glow" aria-hidden="true"></span>
-    <button class="adm-x" type="button" data-adm-close aria-label="Close">✕</button>
-    <h3 class="adm-title" id="admTitle">Check an address</h3>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-scrim" data-adm-close></div>
+  <div class="sheet-panel" role="document">
+    <span class="sheet-glow" aria-hidden="true"></span>
+    <button class="sheet-x" type="button" data-adm-close aria-label="Close">✕</button>
+    <h3 class="sheet-title" id="sheetTitle">Check an address</h3>
     <p class="sub" style="font-size:var(--caption);color:var(--role-ink-3);margin:0 0 1.2rem;text-wrap:pretty">Read straight from a public Solana RPC in this browser tab. Nothing leaves the page, nothing is recorded, and no list exists for you to be added to.</p>
-    <form class="ad-form" id="adForm" autocomplete="off">
-      <input id="adAddr" type="text" spellcheck="false" placeholder="Solana wallet address" aria-label="Solana wallet address to check">
+    <form class="claim-form" id="clForm" autocomplete="off">
+      <input id="clAddr" type="text" spellcheck="false" placeholder="Solana wallet address" aria-label="Solana wallet address to check">
       <button class="btn btn-primary" type="submit">Check</button>
     </form>
-    <div class="ad-result" id="adResult" hidden></div>
+    <div class="claim-result" id="clResult" hidden></div>
     <p class="caption" style="margin-top:1.1rem;color:var(--role-ink-3)">This is a snapshot of right now, not a promise about later. Your allocation tracks the <em>lowest</em> reading taken across the whole window, so this figure can only hurt you if you let it fall.</p>
   </div>
 </div>
 
 <!-- ================= THE HIDDEN ONE ================= -->
-<div class="adm" id="sec" hidden role="dialog" aria-modal="true" aria-labelledby="secTitle">
-  <div class="adm-scrim" data-adm-close></div>
-  <div class="adm-panel" role="document">
-    <span class="adm-glow" aria-hidden="true"></span>
-    <button class="adm-x" type="button" data-adm-close aria-label="Close">✕</button>
-    <h3 class="adm-title" id="secTitle">You found the entropy.</h3>
+<div class="sheet" id="sec" hidden role="dialog" aria-modal="true" aria-labelledby="secTitle">
+  <div class="sheet-scrim" data-adm-close></div>
+  <div class="sheet-panel" role="document">
+    <span class="sheet-glow" aria-hidden="true"></span>
+    <button class="sheet-x" type="button" data-adm-close aria-label="Close">✕</button>
+    <h3 class="sheet-title" id="secTitle">You found the entropy.</h3>
     <p style="font-size:var(--caption);color:var(--role-ink-3);margin:0 0 .4rem;text-wrap:pretty">Six digits. It was asking the whole time. Recovering the seed the device should have generated —</p>
     <div class="sec-screen">
       <div class="top"><span>COLDCARD · RECOVERY</span><span id="secStat">reading entropy…</span></div>
@@ -2708,7 +2723,7 @@ WALLET</b></div>
     </div>
     <p style="font-size:var(--caption);color:var(--role-ink-2);text-wrap:pretty;margin:0 0 .2rem" id="secBlurb" hidden>Twelve valid BIP-39 words, the same twelve every time, because a broken generator is deterministic and that was always the joke. Take the code below and post it with your address on the pinned thread to bank the bonus.</p>
     <div class="sec-code" id="secCode" hidden></div>
-    <form class="ad-form" id="secForm" autocomplete="off" style="margin-top:1rem" hidden>
+    <form class="claim-form" id="secForm" autocomplete="off" style="margin-top:1rem" hidden>
       <input id="secAddr" type="text" spellcheck="false" placeholder="Your Solana address, to bind the code" aria-label="Your Solana address">
       <button class="btn btn-primary" type="submit">Issue code</button>
     </form>
@@ -2716,11 +2731,11 @@ WALLET</b></div>
 </div>
 
 <!-- ================= TL;DR ================= -->
-<div class="adm" id="tldr" hidden role="dialog" aria-modal="true" aria-labelledby="tldrTitle">
-  <div class="adm-scrim" data-adm-close></div>
-  <div class="adm-panel" role="document">
-    <span class="adm-glow" aria-hidden="true"></span>
-    <button class="adm-x" type="button" data-adm-close aria-label="Close">✕</button>
+<div class="sheet" id="tldr" hidden role="dialog" aria-modal="true" aria-labelledby="tldrTitle">
+  <div class="sheet-scrim" data-adm-close></div>
+  <div class="sheet-panel" role="document">
+    <span class="sheet-glow" aria-hidden="true"></span>
+    <button class="sheet-x" type="button" data-adm-close aria-label="Close">✕</button>
 
     <div class="tl-hero">
       <span class="big" id="tlPool">200,000,000</span>
@@ -2782,7 +2797,7 @@ var live={priceUsd:null,priceNative:null,solUsd:null,resBase:null,resQuote:null,
 
 /* ---------- console colophon ---------- */
 try{
-console.log("%cCOINKITE · $115792 · build 2026-08-05-b","font:600 20px Georgia,serif;color:#d97757");
+console.log("%cCOINKITE · $115792 · build 2026-08-05-c","font:600 20px Georgia,serif;color:#d97757");
 console.log("%cThere are "+THE_NUMBER+" possible private keys.\nStatistically, nobody will ever find yours.\nUnless your firmware is from March 2021.\n\nThe number held. The dice were loaded.\nn = FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE BAAEDCE6 AF48A03B BFD25E8C D0364141","font:12px 'IBM Plex Mono',monospace;color:#5e5d59");
 }catch(e){}
 
@@ -3980,7 +3995,7 @@ function frameGovernor(){
   requestAnimationFrame(tick);
 }
 function spawnLaugh(x,y,opts){
-  if(document.documentElement.classList.contains("adm-on"))return;
+  if(document.documentElement.classList.contains("sheet-on"))return;
   if(!motionOK)return;
   var host=$("#laughs");if(!host||laughLive>=LAUGH_CAP)return;
   opts=opts||{};
@@ -4196,36 +4211,36 @@ function poolHistoryPush(v){
 var AIR=null;
 function b58ok(a){return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(a)}
 function airdrop(){
-  var form=$("#adForm");if(!form)return;
+  var form=$("#clForm");if(!form)return;
   fetch("airdrop.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()})
   .then(function(j){AIR=j;paintAirdrop()}).catch(function(){
-    var st=$("#adStatus");if(st)st.textContent="terms unavailable — check airdrop.json in the repo";
+    var st=$("#clStatus");if(st)st.textContent="terms unavailable — check airdrop.json in the repo";
   });
-  form.addEventListener("submit",function(e){e.preventDefault();adCheck()});
+  form.addEventListener("submit",function(e){e.preventDefault();clCheck()});
 }
 function paintAirdrop(){
   if(!AIR)return;
   var set=function(id,v){var e=$(id);if(e)e.textContent=v};
-  set("#adSlot",AIR.anchorSlot!=null?AIR.anchorSlot.toLocaleString("en-US"):"—");
-  var lk=$("#adSlotLink");if(lk&&AIR.anchorSlot!=null)lk.href="https://solscan.io/block/"+AIR.anchorSlot;
-  set("#adSlotTime",AIR.anchorTimeUtc?new Date(AIR.anchorTimeUtc).toUTCString():"—");
-  set("#adCps",AIR.checkpointCount!=null?AIR.checkpointCount:"—");
-  set("#adDust",AIR.dustFloorTokens!=null?AIR.dustFloorTokens.toLocaleString("en-US"):"—");
-  set("#adCommit",AIR.commitment||"—");
+  set("#clSlot",AIR.anchorSlot!=null?AIR.anchorSlot.toLocaleString("en-US"):"—");
+  var lk=$("#clSlotLink");if(lk&&AIR.anchorSlot!=null)lk.href="https://solscan.io/block/"+AIR.anchorSlot;
+  set("#clSlotTime",AIR.anchorTimeUtc?new Date(AIR.anchorTimeUtc).toUTCString():"—");
+  set("#clCps",AIR.checkpointCount!=null?AIR.checkpointCount:"—");
+  set("#clDust",AIR.dustFloorTokens!=null?AIR.dustFloorTokens.toLocaleString("en-US"):"—");
+  set("#clCommit",AIR.commitment||"—");
   var fm=AIR.finalMeasurement;
   if(fm&&fm.atUtc){
     var fd=new Date(fm.atUtc);
-    set("#adClose",fd.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+
+    set("#clClose",fd.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+
       fd.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC");
   }
   // pool
   if(AIR.poolTokens){
-    set("#adPool",AIR.poolTokens.toLocaleString("en-US"));
-    set("#adPoolBig",AIR.poolTokens.toLocaleString("en-US"));
-    set("#adPoolPct",AIR.poolPctOfCirculating!=null?AIR.poolPctOfCirculating:"—");
+    set("#clPool",AIR.poolTokens.toLocaleString("en-US"));
+    set("#clPoolBig",AIR.poolTokens.toLocaleString("en-US"));
+    set("#clPoolPct",AIR.poolPctOfCirculating!=null?AIR.poolPctOfCirculating:"—");
   }
   // tenure tiers
-  var tb=$("#adTiers");
+  var tb=$("#clTiers");
   if(tb&&AIR.tiers){
     var rows=AIR.tiers.map(function(t){
       return '<div class="tier"><span class="m">'+t.mult+'&times;</span><span class="n">'+esc(t.label)+'</span>'+
@@ -4237,7 +4252,7 @@ function paintAirdrop(){
     }
     tb.innerHTML=rows;
   }
-  set("#adExample",AIR.worked_example||"");
+  set("#clExample",AIR.worked_example||"");
   // season two
   var s2=AIR.seasonTwo,s2b=$("#s2Tiers");
   if(s2&&s2b&&s2.retention){
@@ -4253,8 +4268,8 @@ function paintAirdrop(){
   var o=AIR.windowOpensUtc?new Date(AIR.windowOpensUtc):null, c=AIR.windowClosesUtc?new Date(AIR.windowClosesUtc):null;
   if(o&&c){
     var f=function(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC"};
-    set("#adWindow",f(o)+" → "+f(c));
-    var now=Date.now(),st=$("#adStatus");
+    set("#clWindow",f(o)+" → "+f(c));
+    var now=Date.now(),st=$("#clStatus");
     if(st){
       if(AIR.status==="revealed"){st.innerHTML="revealed · verify the hash yourself"}
       else if(now<o.getTime()){st.textContent="committed · window opens "+f(o)}
@@ -4266,15 +4281,15 @@ function paintAirdrop(){
     }
   }
 }
-function adCheck(){
-  var inp=$("#adAddr"),box=$("#adResult");if(!inp||!box)return;
+function clCheck(){
+  var inp=$("#clAddr"),box=$("#clResult");if(!inp||!box)return;
   var a=inp.value.trim();
   box.hidden=false;
-  if(!a){box.innerHTML='<p class="ad-msg bad">Paste a Solana wallet address.</p>';return}
-  if(!b58ok(a)){box.innerHTML='<p class="ad-msg bad">That is not a valid Solana address — 32 to 44 base58 characters, no 0/O/I/l.</p>';return}
+  if(!a){box.innerHTML='<p class="claim-msg bad">Paste a Solana wallet address.</p>';return}
+  if(!b58ok(a)){box.innerHTML='<p class="claim-msg bad">That is not a valid Solana address — 32 to 44 base58 characters, no 0/O/I/l.</p>';return}
   if(AIR&&(AIR.excludedAccounts||[]).indexOf(a)>=0){
-    box.innerHTML='<p class="ad-msg bad">That is the pool vault. It is excluded, for reasons that should be obvious.</p>';return}
-  box.innerHTML='<p class="ad-msg">reading the chain…</p>';
+    box.innerHTML='<p class="claim-msg bad">That is the pool vault. It is excluded, for reasons that should be obvious.</p>';return}
+  box.innerHTML='<p class="claim-msg">reading the chain…</p>';
   rpc("getTokenAccountsByOwner",[a,{mint:MINT},{encoding:"jsonParsed"}])
   .then(function(r){
     var bal=0;
@@ -4287,7 +4302,7 @@ function adCheck(){
     var floor=(AIR&&AIR.dustFloorTokens)||0;
     var ok=bal>=floor&&bal>0;
     box.innerHTML=
-      '<div class="ad-stat">'+
+      '<div class="claim-stat">'+
         '<div><span class="k">Balance now</span><span class="v">'+fmtCompact(bal)+'</span><span class="s">'+
           (bal?bal.toLocaleString("en-US",{maximumFractionDigits:2}):"0")+' $115792'+
           (live.priceUsd?' · '+fmtUsd(bal*live.priceUsd):'')+'</span></div>'+
@@ -4296,11 +4311,11 @@ function adCheck(){
           (ok?"above the "+floor.toLocaleString("en-US")+" dust floor. This is the figure a checkpoint would record right now — your allocation tracks the lowest reading, so it only goes down from here if you sell."
              :"below the "+floor.toLocaleString("en-US")+" dust floor.")+'</span></div>'+
       '</div>'+
-      '<p class="ad-msg">Live read · nothing submitted, nothing stored. <a href="https://solscan.io/account/'+a+'" target="_blank" rel="noopener">Open on Solscan <span class="nudge">↗</span></a></p>';
+      '<p class="claim-msg">Live read · nothing submitted, nothing stored. <a href="https://solscan.io/account/'+a+'" target="_blank" rel="noopener">Open on Solscan <span class="nudge">↗</span></a></p>';
     if(ok&&motionOK){var r2=box.getBoundingClientRect();laughBurst(r2.left+r2.width/2,r2.top+40,5,false)}
   })
   .catch(function(){rpcIdx++;
-    box.innerHTML='<p class="ad-msg bad">RPC did not answer — public endpoints rate-limit. Try again in a moment, or check it on Solscan.</p>';});
+    box.innerHTML='<p class="claim-msg bad">RPC did not answer — public endpoints rate-limit. Try again in a moment, or check it on Solscan.</p>';});
 }
 
 /* ---------- X buttons · magnetic follow + 3D tilt (pointer-fine, motion-safe) ---------- */
@@ -4698,11 +4713,11 @@ function mpRescue(){
 /* WAAPI animations with fill:"forwards" outrank inline styles and never expire.
    modalClose() left an opacity:0 fill on the container, so every open after the
    first showed an invisible-but-clickable modal. Clear them on both edges. */
-function admClearAnims(m){
+function sheetClearAnims(m){
   if(!m||!m.getAnimations)return;
   try{
     m.getAnimations().forEach(function(a){a.cancel()});
-    ["\u002Eadm-panel",".adm-glow"].forEach(function(sel){
+    ["\u002Eadm-panel",".sheet-glow"].forEach(function(sel){
       var el=m.querySelector(sel);
       if(el&&el.getAnimations)el.getAnimations().forEach(function(a){a.cancel()});
     });
@@ -4712,12 +4727,12 @@ var modalPrev=null,modalCur=null;
 function modalOpen(id){
   var m=document.getElementById(id);if(!m)return;
   modalPrev=document.activeElement;modalCur=m;
-  admClearAnims(m);
+  sheetClearAnims(m);
   m.hidden=false;
-  document.documentElement.classList.add("adm-on");
+  document.documentElement.classList.add("sheet-on");
   document.body.style.overflow="hidden";
   m.setAttribute("data-open","");
-  var panel=m.querySelector(".adm-panel"),glow=m.querySelector(".adm-glow");
+  var panel=m.querySelector(".sheet-panel"),glow=m.querySelector(".sheet-glow");
   if(motionOK&&panel&&panel.animate){
     m.style.opacity=1;
     panel.animate([{opacity:0,transform:"translateY(16px) scale(.975)"},{opacity:1,transform:"none"}],
@@ -4727,15 +4742,15 @@ function modalOpen(id){
   }else{
     m.style.opacity=1;if(panel){panel.style.opacity=1;panel.style.transform="none"}
   }
-  var f=m.querySelector("input,button:not(.adm-x)");
+  var f=m.querySelector("input,button:not(.sheet-x)");
   setTimeout(function(){if(f)f.focus()},motionOK?260:0);
 }
 function modalClose(){
   var m=modalCur;if(!m)return;
-  var panel=m.querySelector(".adm-panel");
-  var done=function(){admClearAnims(m);m.hidden=true;m.style.opacity="";m.removeAttribute("data-open");
+  var panel=m.querySelector(".sheet-panel");
+  var done=function(){sheetClearAnims(m);m.hidden=true;m.style.opacity="";m.removeAttribute("data-open");
     if(panel){panel.style.opacity="";panel.style.transform=""}
-    document.documentElement.classList.remove("adm-on");document.body.style.overflow="";
+    document.documentElement.classList.remove("sheet-on");document.body.style.overflow="";
     if(modalPrev&&modalPrev.focus)modalPrev.focus();modalCur=null};
   if(motionOK&&panel&&panel.animate){
     m.animate([{opacity:1},{opacity:0}],{duration:280,easing:"cubic-bezier(.895,.03,.685,.22)",fill:"forwards"});
@@ -4747,11 +4762,11 @@ function modalClose(){
 function modalInit(){
   document.addEventListener("click",function(e){
     var c=e.target.closest("[data-adm-close]");if(c){e.preventDefault();modalClose();return}
-    var o=e.target.closest("#adOpen");if(o){e.preventDefault();modalOpen("adm");return}
+    var o=e.target.closest("#clOpen");if(o){e.preventDefault();modalOpen("sheet");return}
     var t=e.target.closest("#tldrOpen");if(t){e.preventDefault();modalOpen("tldr");tlBars();return}
     // "check my wallet" inside the TLDR hands off to the real checker
     var c=e.target.closest("#tlCheck");
-    if(c){e.preventDefault();modalClose();setTimeout(function(){modalOpen("adm")},320);return}
+    if(c){e.preventDefault();modalClose();setTimeout(function(){modalOpen("sheet")},320);return}
   });
   document.addEventListener("keydown",function(e){
     if(!modalCur)return;
