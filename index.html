@@ -1506,7 +1506,7 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
 .adm-scrim{position:absolute;inset:0;background:rgba(12,12,11,.55);opacity:0;
   transition:opacity .42s var(--ease-out-quart)}
 .adm[data-open] .adm-scrim{opacity:1}
-.adm-panel{position:relative;width:min(46rem,100%);max-height:calc(100dvh - 3rem);overflow-y:auto;overscroll-behavior:contain;
+.adm-panel{position:relative;width:min(46rem,100%);max-width:100%;min-width:0;max-height:calc(100dvh - 3rem);overflow-y:auto;overscroll-behavior:contain;
   background:var(--role-ground);border-radius:var(--r-16);padding:clamp(1.3rem,3.4vw,2rem);
   box-shadow:0 40px 90px -20px rgba(0,0,0,.5),inset 0 0 0 1px var(--role-hairline);
   opacity:0;transform:translateY(16px) scale(.975)}
@@ -1547,6 +1547,85 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
 .sec-code b{color:var(--role-accent);font-size:1rem;letter-spacing:.08em}
 .sec-hint{position:relative;cursor:help;border-bottom:1px dotted var(--role-hairline-2)}
 
+/* ============================================================
+   TLDR · the whole airdrop in one screen, for people who will
+   not read the section underneath it. Which is most people.
+   ============================================================ */
+.tldr-cta{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:var(--space-small)}
+.tldr-btn{position:relative;display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--font-mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:.85rem 1.5rem;border:0;border-radius:var(--r-max);cursor:pointer;
+  background:var(--role-ink);color:var(--role-ground);
+  box-shadow:0 3px 14px rgba(20,20,19,.2);
+  transition:transform .24s var(--ease-out-quart),box-shadow .24s var(--ease-out-quart);
+  -webkit-tap-highlight-color:transparent}
+.tldr-btn .zap{font-size:1rem;line-height:1}
+.tldr-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,20,19,.3)}
+.tldr-btn:active{transform:translateY(0) scale(.98)}
+.tldr-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.tldr-cta .hint{font-family:var(--font-mono);font-size:var(--agate);color:var(--role-ink-3)}
+
+/* --- inside the modal --- */
+.tl-hero{text-align:center;padding:.2rem 0 1.1rem;border-bottom:1px solid var(--role-hairline);margin-bottom:1.3rem}
+.tl-hero .big{font-family:var(--font-mono);font-size:clamp(2rem,9vw,3.2rem);font-weight:600;
+  letter-spacing:-.03em;line-height:1;color:var(--role-accent);display:block}
+.tl-hero .sub{display:block;margin-top:.5rem;font-size:var(--body-2);color:var(--role-ink-2)}
+.tl-hero .sub b{color:var(--role-ink)}
+
+/* three-step flow */
+.tl-flow{display:grid;gap:.6rem;grid-template-columns:minmax(0,1fr);margin-bottom:1.4rem}
+@media (min-width:620px){ .tl-flow{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:stretch} }
+.tl-step{background:var(--role-card);border-radius:var(--r-12);padding:1rem .9rem;text-align:center;
+  box-shadow:inset 0 0 0 1px var(--role-hairline);display:flex;flex-direction:column;gap:.3rem;justify-content:center}
+.tl-step .n{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--role-ink-3)}
+.tl-step .t{font-family:var(--font-sans);font-size:1.15rem;font-weight:700;letter-spacing:-.015em;line-height:1.15}
+.tl-step .d{font-size:var(--caption);color:var(--role-ink-3);line-height:1.45}
+.tl-step.go{background:var(--role-ink);box-shadow:none}
+.tl-step.go .t{color:var(--role-ground)}
+.tl-step.go .n{color:#8a8880}
+.tl-step.go .d{color:#a8a69e}
+.tl-arrow{display:none;align-items:center;justify-content:center;color:var(--role-ink-3);font-size:1.2rem}
+@media (min-width:620px){ .tl-arrow{display:flex} }
+
+/* the one rule */
+.tl-rule{background:color-mix(in oklab,var(--role-loss) 9%,var(--role-card));
+  box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--role-loss) 32%,transparent);
+  border-radius:var(--r-12);padding:1rem 1.1rem;text-align:center;margin-bottom:1.4rem}
+.tl-rule .k{display:block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--role-loss);margin-bottom:.4rem}
+.tl-rule .m{display:block;font-size:1.05rem;font-weight:600;line-height:1.35;letter-spacing:-.01em}
+.tl-rule .d{display:block;margin-top:.45rem;font-size:var(--caption);color:var(--role-ink-2);line-height:1.5}
+
+/* multiplier ladder */
+.tl-ladder{margin-bottom:1.3rem}
+.tl-ladder .cap{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--role-ink-3);display:flex;justify-content:space-between;margin-bottom:.6rem}
+.tl-bars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:5.6rem auto auto;gap:.35rem .4rem}
+/* subgrid so the bar tops, labels and captions line up across all four,
+   even when one label wraps to two lines */
+.tl-bar{display:grid;grid-row:span 3;grid-template-rows:subgrid;gap:inherit;text-align:center}
+.tl-bar .fill{align-self:end;border-radius:var(--r-8) var(--r-8) 4px 4px;background:var(--role-accent);
+  display:flex;align-items:flex-start;justify-content:center;padding-top:.4rem;
+  font-family:var(--font-mono);font-weight:600;font-size:1rem;color:#fff;
+  height:0;transition:height .7s var(--ease-out-quart)}
+.tl-bar:nth-child(2) .fill{background:color-mix(in oklab,var(--role-accent) 82%,var(--role-ground))}
+.tl-bar:nth-child(3) .fill{background:color-mix(in oklab,var(--role-accent) 60%,var(--role-ground))}
+.tl-bar:nth-child(4) .fill{background:var(--role-ink-3)}
+.tl-bar .lab{font-family:var(--font-sans);font-size:.75rem;font-weight:600;line-height:1.2;overflow-wrap:anywhere}
+.tl-bar .sub{font-family:var(--font-mono);font-size:.6rem;color:var(--role-ink-3);overflow-wrap:anywhere}
+
+.tl-facts{display:grid;gap:1px;background:var(--role-hairline);border:1px solid var(--role-hairline);
+  border-radius:var(--r-12);overflow:hidden;margin-bottom:1.2rem}
+.tl-facts > div{background:var(--role-ground);padding:.7rem .9rem;display:flex;gap:1rem;align-items:baseline;
+  justify-content:space-between;flex-wrap:wrap}
+.tl-facts .k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.1em;text-transform:uppercase;color:var(--role-ink-3)}
+.tl-facts .v{font-family:var(--font-mono);font-size:var(--caption);color:var(--role-ink);text-align:right}
+.tl-facts .v.hot{color:var(--role-loss)}
+
+.tl-foot{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:center}
+.tl-foot .btn{flex:0 0 auto}
+.tl-note{margin-top:1rem;font-size:var(--agate);color:var(--role-ink-3);text-align:center;text-wrap:pretty;line-height:1.55}
+
 /* ---------- narrow-screen sizing · last in the cascade on purpose ----------
    .wordmark's base font-size is declared further up the sheet, so these have to
    come after it to win on source order (media queries add no specificity). */
@@ -1565,6 +1644,24 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
   .wordmark{font-size:.9rem}
   .head-cta{font-size:.76rem;padding:.45rem .55rem}
 }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* ---------- mobile: the transaction feed ----------
+   Seven mono columns need 562px. On a 390px phone that forced a nested sideways
+   scroll, and once a modal locked body scrolling the engine widened the layout
+   viewport to fit it instead. Drop the two columns that repeat information
+   available elsewhere in the row and tighten the cells. */
+/* the empty-state sentence inherits white-space:nowrap from .feed td and was
+   single-handedly setting the table's min-content width to ~400px */
+.feed-empty{white-space:normal;text-wrap:pretty}
+.feed td:has(.feed-empty){white-space:normal}
+@media (max-width:600px){
+  .feed th,.feed td{padding:.6rem .55rem;font-size:.72rem}
+  .feed th:nth-child(4),.feed td:nth-child(4),      /* SOL — USD says the same thing */
+  .feed th:nth-child(6),.feed td:nth-child(6){display:none}  /* signature — the ↗ link goes there */
+  .feed .chip{font-size:.6rem;padding:.2em .5em}
+}
+/* a locked body must not let a stray overflow widen the layout viewport */
+html.adm-on body{overflow-x:clip}
 </style>
 </head>
 <body>
@@ -2050,6 +2147,11 @@ WALLET</b></div>
     <h2 class="headline-1 trim-sans" style="max-width:26ch" data-reveal><span id="adPoolBig">200,000,000</span> tokens, free, paid on your floor.</h2>
     <p class="lede prose" style="margin-top:var(--space-small);color:var(--role-ink-2)" data-reveal>Twenty per cent of circulating supply, committed to a fixed pool before the window opened. Anyone holding can qualify — but an entropy failure is a floor problem, a seed is only as strong as the weakest moment in its generation, and this distribution works the same way on purpose. You are not paid on what you hold at some announced instant. You are paid on the <span class="mark">least you ever held</span>, multiplied by how early you were holding it.</p>
 
+    <div class="tldr-cta" data-reveal>
+      <button class="tldr-btn" id="tldrOpen" type="button"><span class="zap" aria-hidden="true">⚡</span>TL;DR — 20 seconds</button>
+      <span class="hint">the whole thing, no reading</span>
+    </div>
+
     <div class="ad-grid">
       <div class="ad-rule" data-reveal>
         <p class="big">One base, one multiplier.</p>
@@ -2246,6 +2348,58 @@ WALLET</b></div>
       <input id="secAddr" type="text" spellcheck="false" placeholder="Your Solana address, to bind the code" aria-label="Your Solana address">
       <button class="btn btn-primary" type="submit">Issue code</button>
     </form>
+  </div>
+</div>
+
+<!-- ================= TL;DR ================= -->
+<div class="adm" id="tldr" hidden role="dialog" aria-modal="true" aria-labelledby="tldrTitle">
+  <div class="adm-scrim" data-adm-close></div>
+  <div class="adm-panel" role="document">
+    <span class="adm-glow" aria-hidden="true"></span>
+    <button class="adm-x" type="button" data-adm-close aria-label="Close">✕</button>
+
+    <div class="tl-hero">
+      <span class="big" id="tlPool">200,000,000</span>
+      <span class="sub">free tokens. <b>20% of supply.</b> For people who hold.</span>
+      <h3 id="tldrTitle" class="sr-only">Airdrop summary</h3>
+    </div>
+
+    <div class="tl-flow">
+      <div class="tl-step"><span class="n">step 1</span><span class="t">Buy</span><span class="d">10,000 tokens minimum. That's about a dollar.</span></div>
+      <div class="tl-arrow" aria-hidden="true">→</div>
+      <div class="tl-step"><span class="n">step 2</span><span class="t">Don't sell</span><span class="d">Six snapshots. Five at secret times. You won't see them coming.</span></div>
+      <div class="tl-arrow" aria-hidden="true">→</div>
+      <div class="tl-step go"><span class="n">step 3</span><span class="t">Get paid</span><span class="d">Aug 18. Straight to your wallet.</span></div>
+    </div>
+
+    <div class="tl-rule">
+      <span class="k">the only rule that matters</span>
+      <span class="m">You're paid on the <em>smallest</em> amount you ever held.</span>
+      <span class="d">Sell once — even for a minute, even by accident — and that dip becomes your number. Permanently. Buying back does not undo it. So don't be clever. Just hold.</span>
+    </div>
+
+    <div class="tl-ladder">
+      <div class="cap"><span>earlier you got here</span><span>later</span></div>
+      <div class="tl-bars" role="img" aria-label="Multiplier by how early you were holding: 3x, 2x, 1.5x, 1x.">
+        <div class="tl-bar"><span class="fill" data-h="100">3×</span><span class="lab">Day one</span><span class="sub">pre-launch</span></div>
+        <div class="tl-bar"><span class="fill" data-h="67">2×</span><span class="lab">Early</span><span class="sub">buy now</span></div>
+        <div class="tl-bar"><span class="fill" data-h="50">1.5×</span><span class="lab">Mid</span><span class="sub">next week</span></div>
+        <div class="tl-bar"><span class="fill" data-h="33">1×</span><span class="lab">Late</span><span class="sub">last snapshot</span></div>
+      </div>
+    </div>
+
+    <div class="tl-facts">
+      <div><span class="k">Hold until</span><span class="v hot">Aug 18 · 15:49 UTC</span></div>
+      <div><span class="k">Minimum</span><span class="v">10,000 $115792</span></div>
+      <div><span class="k">Snapshots</span><span class="v">5 secret + 1 public</span></div>
+      <div><span class="k">Buy too late and you get</span><span class="v hot">nothing at all</span></div>
+    </div>
+
+    <div class="tl-foot">
+      <a class="btn btn-primary" href="https://pump.fun/coin/FwxtoAzKjAT4KsL8XeoqM1FU3PmzWtiMFDBQ3jFepump" target="_blank" rel="noopener">Buy $115792</a>
+      <button class="btn" type="button" id="tlCheck">Check my wallet</button>
+    </div>
+    <p class="tl-note">There's a last secret snapshot, and after it passes buying in is worth zero rather than less. Nobody knows when that is — that's the point. Full terms, the commitment hash and the proof are in the section behind this box.</p>
   </div>
 </div>
 <script>
@@ -3724,6 +3878,7 @@ function paintAirdrop(){
     }).join("");
     set("#s2Disc",s2.disclaimer||"");
   }
+  tlSync();
   var o=AIR.windowOpensUtc?new Date(AIR.windowOpensUtc):null, c=AIR.windowClosesUtc?new Date(AIR.windowClosesUtc):null;
   if(o&&c){
     var f=function(d){return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:false})+" UTC"};
@@ -4206,7 +4361,11 @@ function modalClose(){
 function modalInit(){
   document.addEventListener("click",function(e){
     var c=e.target.closest("[data-adm-close]");if(c){e.preventDefault();modalClose();return}
-    var o=e.target.closest("#adOpen");if(o){e.preventDefault();modalOpen("adm")}
+    var o=e.target.closest("#adOpen");if(o){e.preventDefault();modalOpen("adm");return}
+    var t=e.target.closest("#tldrOpen");if(t){e.preventDefault();modalOpen("tldr");tlBars();return}
+    // "check my wallet" inside the TLDR hands off to the real checker
+    var c=e.target.closest("#tlCheck");
+    if(c){e.preventDefault();modalClose();setTimeout(function(){modalOpen("adm")},320);return}
   });
   document.addEventListener("keydown",function(e){
     if(!modalCur)return;
@@ -4218,6 +4377,23 @@ function modalInit(){
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
     else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
   });
+}
+
+/* the ladder grows on open, and resets on close so it replays every time */
+function tlBars(){
+  var bars=$$("#tldr .tl-bar .fill");
+  bars.forEach(function(f){f.style.height="0"});
+  if(!motionOK){bars.forEach(function(f){f.style.height=f.getAttribute("data-h")+"%"});return}
+  setTimeout(function(){
+    bars.forEach(function(f,i){
+      setTimeout(function(){f.style.height=f.getAttribute("data-h")+"%"},90*i);
+    });
+  },260);
+}
+/* keep the TLDR pool figure honest against airdrop.json rather than hard-coding it twice */
+function tlSync(){
+  if(!AIR||!AIR.poolTokens)return;
+  var e=$("#tlPool");if(e)e.textContent=AIR.poolTokens.toLocaleString("en-US");
 }
 
 /* ============================================================
