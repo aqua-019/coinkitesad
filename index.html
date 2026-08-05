@@ -1821,6 +1821,40 @@ body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
   .tl-facts > div{padding:.55rem .75rem}
   .tl-note{font-size:.68rem;margin-top:.75rem}
 }
+
+/* ---------- airdrop: three stacked horizontal blocks ----------
+   Was a tall left column, a short right column and an orphaned band
+   underneath. Now three equal-width bands, each one a whole idea. */
+.ad-blocks{display:flex;flex-direction:column;gap:var(--space-small);margin-top:var(--space-small)}
+.ad-block{background:var(--role-card);border-radius:var(--r-16);
+  box-shadow:inset 0 0 0 1px var(--role-hairline);
+  padding:clamp(1.2rem,3vw,1.9rem);min-width:0}
+.ad-block__k{font-family:var(--font-mono);font-size:var(--agate);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--role-accent);margin:0 0 1rem}
+.ad-block .big{font-family:var(--font-sans);font-size:var(--headline-3);font-weight:600;
+  line-height:var(--lh-125);letter-spacing:-.01em;margin:0 0 .7rem;text-wrap:balance}
+.ad-block > p{margin:0 0 .8rem;font-size:var(--body-2);color:var(--role-ink-2);text-wrap:pretty}
+.ad-block h3{font-size:var(--headline-3);margin:0 0 .5rem}
+/* block 2 splits internally: terms and proof on the left, checker on the right */
+.ad-two{display:grid;gap:var(--space-small);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){ .ad-two{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start} }
+.ad-two__a,.ad-two__b{min-width:0}
+.ad-two__b{background:var(--role-card-2);border-radius:var(--r-12);padding:clamp(1rem,2.4vw,1.35rem)}
+.ad-two .ad-facts{margin-top:0}
+/* the ladders go horizontal now that they have the full width */
+@media (min-width:820px){
+  .tiers{grid-template-columns:repeat(5,minmax(0,1fr))}
+  #s2Tiers{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tier{grid-template-columns:minmax(0,1fr);align-content:start;text-align:center;
+    gap:.35rem;padding:1.05rem .8rem}
+  .tier .m{font-size:1.6rem;line-height:1}
+  .tier .n{font-size:var(--body-2)}
+  .tier .d{grid-column:1;font-size:var(--agate);line-height:1.45}
+}
+@media (min-width:560px) and (max-width:819.98px){
+  .tiers,#s2Tiers{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -2011,8 +2045,11 @@ WALLET</b></div>
       <span class="hint">the whole thing, no reading</span>
     </div>
 
-    <div class="ad-grid">
-      <div class="ad-rule" data-reveal>
+    <div class="ad-blocks">
+  <!-- 1 · how it works -->
+  <section class="ad-block" data-reveal>
+    <p class="ad-block__k">01 · how it works</p>
+
         <p class="big">One base, one multiplier.</p>
         <p><strong>The base — what you're measured on.</strong> Five checkpoints land at undisclosed times inside the window, and a sixth measurement is taken at the close, whose time is public. Your base is the <em>minimum</em> balance across the anchor slot, every checkpoint, and the close. Sell at any point and it is permanently capped at that trough, including at the checkpoints you haven't seen yet. Claim-and-dump pays you what you dumped to.</p>
         <p><strong>So there is a cutoff, and you cannot see it.</strong> Because the base is a minimum across <em>all</em> of those readings, a wallet that arrives after the last secret checkpoint holds zero at the earlier ones — and a minimum containing a zero is zero. Buy late enough and the allocation is not smaller, it is nothing. Nobody knows when that line passes, which is the only honest reason to buy now rather than later.</p>
@@ -2021,7 +2058,14 @@ WALLET</b></div>
         <div class="tiers" id="adTiers"></div>
         <p class="caption" style="margin-top:.8rem" id="adExample">—</p>
 
-        <div class="ad-facts">
+          </section>
+
+  <!-- 2 · the terms, the proof, and the checker -->
+  <section class="ad-block" data-reveal>
+    <p class="ad-block__k">02 · the terms &amp; the proof</p>
+    <div class="ad-two">
+      <div class="ad-two__a">
+<div class="ad-facts">
           <div><span class="k">Pool</span><span class="v"><span id="adPool">—</span> $115792 · <span id="adPoolPct">—</span>% of circulating · hard cap</span></div>
           <div><span class="k">Anchor slot</span><span class="v"><a id="adSlotLink" href="#" target="_blank" rel="noopener"><span id="adSlot">—</span></a> · <span id="adSlotTime">—</span></span></div>
           <div><span class="k">Checkpoints</span><span class="v"><span id="adCps">—</span> · times undisclosed, committed below</span></div>
@@ -2041,9 +2085,9 @@ WALLET</b></div>
           <span class="sigpair" aria-hidden="true"><i></i><i></i></span>
           <span id="adStatus">status —</span>
         </div>
-      </div>
+            </div>
+      <div class="ad-two__b">
 
-      <div class="ad-check" data-reveal>
         <h3>Am I in?</h3>
         <p class="sub">The checker reads the chain live, in your browser. Nothing is submitted, nothing is stored, and no list is kept anywhere — <strong>submitting an address does not make you eligible and never could</strong>. Holding does. It shows what a checkpoint taken <em>right now</em> would record against you, which is the number your allocation tracks downward if you sell.</p>
         <div class="ad-cta">
@@ -2052,17 +2096,22 @@ WALLET</b></div>
         </div>
         <p class="caption" style="margin-top:1.2rem">Or verify by hand: <span class="mono">getTokenAccountsByOwner</span> against mint <span class="mono">Fwxt…pump</span>. The site is doing nothing you can't do from a terminal — which is the only claim on this page worth making.</p>
         <p class="caption" style="margin-top:1rem;color:var(--role-ink-3)">The device asked for six digits<span class="sec-hint" title="It is still asking.">.</span> It is still asking.</p>
-      </div>
+            </div>
     </div>
+  </section>
 
-    <!-- ---------- season two ---------- -->
-    <div class="cust" data-reveal style="margin-top:var(--space-medium)">
+  <!-- 3 · season two -->
+  <section class="ad-block" data-reveal>
+    <p class="ad-block__k">03 · season two</p>
+
       <h3>Season two, and why you're being told about it now</h3>
       <p class="sub" style="max-width:66ch">An airdrop normally gets sold within the hour, because a token you were handed for free has no anchor holding it down. So here is the rule for the next one, published before this one has even landed: <strong>your season-two weight counts what you still hold of season one</strong>. Up to fifty per cent of circulating supply sits behind that rule.</p>
       <div class="tiers" id="s2Tiers"></div>
       <p class="caption" style="margin-top:.9rem;max-width:var(--measure)">Nothing is locked and there is no vesting contract, no cliff, and no code that could be drained — the mechanism is a published sentence, not a program. You are simply told in advance what selling costs you. And it needs no special tracking: retention is measured with the same instrument as everything else here, the minimum balance across undisclosed checkpoints, so your season-one tokens are just part of the floor you are measured on. Sell them and the floor drops. The rule never has to know which tokens were which.</p>
       <p class="caption" style="margin-top:.7rem;max-width:var(--measure);color:var(--role-ink-3)" id="s2Disc">—</p>
-    </div>
+      </section>
+</div>
+
 
     <p class="caption" style="margin-top:var(--space-medium);max-width:var(--measure)">Nothing here is a promise of value, and no allocation is owed to anyone. Figures load from <span class="mono">airdrop.json</span> in the public repository, so any change to the terms is a visible commit with a timestamp on it — including the amendment that replaced version one of these rules, which is recorded in that file with its reasoning rather than quietly overwritten. That is the entire point.</p>
   </div>
@@ -2295,10 +2344,6 @@ WALLET</b></div>
 </div>
   </div>
 </section>
-
-<div class="degenbelt full-bleed" aria-hidden="true">
-  <div class="degenbelt__track" id="degenTrack"></div>
-</div>
 
 <section class="section breakout acc" id="incident">
   <h2 class="acc__h">
