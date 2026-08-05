@@ -1520,10 +1520,17 @@ body.degen .laugh.css-anim{animation-duration:var(--durd,1.5s)}
   display:grid;place-items:center;transition:background .2s var(--ease-out-quart),transform .2s var(--ease-out-quart)}
 .adm-x:hover{background:var(--role-hairline);transform:rotate(90deg)}
 .adm-title{font-size:var(--headline-2,1.6rem);font-weight:600;letter-spacing:-.015em;margin:0 0 .4rem;padding-right:2.5rem}
-@media (prefers-reduced-motion:no-preference){
-  html.adm-on body > *:not(.adm){filter:blur(7px) saturate(.72);transition:filter .5s var(--ease-out-quart)}
-  body > *:not(.adm){transition:filter .42s var(--ease-out-quart)}
-}
+/* No backdrop-filter here, deliberately. Blurring the live page behind the
+   scrim re-composites the entire viewport on every frame anything beneath it
+   moves, and with skeleton shimmers plus the marquees that is constant — it
+   pinned desktop at 16-21fps and was worse on phones. The panel still arrives
+   out of a blur (one small element, GPU-cheap); the page just dims. */
+.adm-scrim{background:rgba(12,12,11,.72)}
+html.adm-on body > *:not(.adm),
+html.adm-on body > *:not(.adm) *{animation-play-state:paused!important}
+.adm-panel{filter:blur(6px)}
+.adm[data-open] .adm-panel{filter:blur(0);transition:filter .44s var(--ease-out-quart)}
+@media (prefers-reduced-motion:reduce){.adm-panel{filter:none}}
 @media (prefers-reduced-motion:reduce){
   .adm-scrim{transition:none}
   .adm-panel{transform:none}
@@ -1759,6 +1766,61 @@ html.adm-on body{overflow-x:clip}
   .acc__teaser{font-size:var(--agate)}
 }
 
+
+/* ---------- shine + sparkle on the four rows that make money ----------
+   Gradient sweep clipped to the glyphs, a clay glow behind them, and two
+   twinkling stars. Motion-safe: reduced-motion gets the glow, no movement. */
+.acc__title[data-shine]{position:relative;isolation:isolate;
+  background-image:linear-gradient(100deg,
+    var(--role-ink) 0%,var(--role-ink) 38%,
+    var(--role-accent) 47%,#ffd9a8 50%,var(--role-accent) 53%,
+    var(--role-ink) 62%,var(--role-ink) 100%);
+  background-size:260% 100%;background-position:130% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 9px color-mix(in oklab,var(--role-accent) 34%,transparent))}
+.acc[data-open] .acc__title[data-shine]{filter:drop-shadow(0 0 12px color-mix(in oklab,var(--role-accent) 46%,transparent))}
+.acc__title[data-shine]::before,.acc__title[data-shine]::after{
+  content:"";position:absolute;width:.46em;height:.46em;pointer-events:none;opacity:0;
+  background:#ffe6bd;
+  clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);
+  filter:drop-shadow(0 0 4px var(--role-accent))}
+.acc__title[data-shine]::before{top:-.18em;right:-.5em}
+.acc__title[data-shine]::after{bottom:.02em;right:-.95em;width:.3em;height:.3em}
+@media (prefers-reduced-motion:no-preference){
+  .acc__title[data-shine]{animation:accShine 5.2s var(--ease-in-out-quart) infinite}
+  .acc__title[data-shine]::before{animation:accTwinkle 3.6s ease-in-out infinite}
+  .acc__title[data-shine]::after{animation:accTwinkle 3.6s ease-in-out .9s infinite}
+  .acc__btn:hover .acc__title[data-shine]{animation-duration:1.9s}
+}
+@keyframes accShine{0%{background-position:130% 0}55%,100%{background-position:-30% 0}}
+@keyframes accTwinkle{0%,72%,100%{opacity:0;transform:scale(.4) rotate(0)}
+  82%{opacity:1;transform:scale(1) rotate(28deg)}}
+/* the two inverted panels only make sense while the page is light */
+body.theme-inverted .acc__panel--dark .acc__inner{background:none;color:inherit;
+  --role-ground:initial;--role-ink:initial;--role-ink-2:initial;--role-ink-3:initial;
+  --role-card:initial;--role-card-2:initial;--role-hairline:initial;--role-hairline-2:initial;
+  --role-gain:initial;--role-loss:initial;--role-code:initial}
+
+
+/* the TL;DR should not be a scroll marathon on a phone */
+@media (max-width:600px){
+  .adm-panel{padding:1.05rem 1rem 1.2rem}
+  .tl-hero{padding:.1rem 0 .8rem;margin-bottom:.9rem}
+  .tl-hero .big{font-size:clamp(1.8rem,11vw,2.5rem)}
+  .tl-hero .sub{font-size:var(--caption)}
+  .tl-flow{gap:.45rem;margin-bottom:.9rem}
+  .tl-step{padding:.7rem .75rem}
+  .tl-step .t{font-size:1rem}
+  .tl-step .d{font-size:var(--agate);line-height:1.35}
+  .tl-rule{padding:.8rem .9rem;margin-bottom:.9rem}
+  .tl-rule .m{font-size:.95rem}
+  .tl-rule .d{font-size:var(--agate)}
+  .tl-ladder{margin-bottom:.9rem}
+  .tl-bars{grid-template-rows:4.4rem auto auto}
+  .tl-facts{margin-bottom:.9rem}
+  .tl-facts > div{padding:.55rem .75rem}
+  .tl-note{font-size:.68rem;margin-top:.75rem}
+}
 </style>
 </head>
 <body>
@@ -1869,10 +1931,10 @@ WALLET</b></div>
 
 <section class="section breakout acc" id="market" style="padding-top:0">
   <h2 class="acc__h">
-    <button class="acc__btn" type="button" aria-expanded="true" aria-controls="p-market">
+    <button class="acc__btn" type="button" aria-expanded="truefalse" aria-controls="p-market">
       <svg class="acc__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17.5 9 11l4 3.5L21 6"/><path d="M21 6h-5m5 0v5"/></svg>
       <span class="acc__n">01</span>
-      <span class="acc__main"><span class="acc__title">Market</span><span class="acc__teaser">price · cap · liquidity</span></span>
+      <span class="acc__main"><span class="acc__title" data-shine>Market</span><span class="acc__teaser">price · cap · liquidity</span></span>
       <span class="acc__stat" data-acc-stat="market"></span>
       <span class="acc__chev" aria-hidden="true"></span>
     </button>
@@ -1932,7 +1994,7 @@ WALLET</b></div>
     <button class="acc__btn" type="button" aria-expanded="false" aria-controls="p-airdrop">
       <svg class="acc__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v10"/><path d="m8 9.5 4 4 4-4"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>
       <span class="acc__n">02</span>
-      <span class="acc__main"><span class="acc__title">Free tokens</span><span class="acc__teaser">200M free. Just hold.</span></span>
+      <span class="acc__main"><span class="acc__title" data-shine>Free tokens</span><span class="acc__teaser">200M free. Just hold.</span></span>
       <span class="acc__stat" data-acc-stat="airdrop"></span>
       <span class="acc__tldr" role="button" tabindex="0" data-tldr aria-label="Open the 20 second summary">TL;DR</span><span class="acc__chev" aria-hidden="true"></span>
     </button>
@@ -2013,7 +2075,7 @@ WALLET</b></div>
     <button class="acc__btn" type="button" aria-expanded="false" aria-controls="p-pool">
       <svg class="acc__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5s5.5 5.4 5.5 9a5.5 5.5 0 1 1-11 0c0-3.6 5.5-9 5.5-9Z"/></svg>
       <span class="acc__n">03</span>
-      <span class="acc__main"><span class="acc__title">The pool</span><span class="acc__teaser">what you can sell into</span></span>
+      <span class="acc__main"><span class="acc__title" data-shine>The pool</span><span class="acc__teaser">what you can sell into</span></span>
       <span class="acc__stat" data-acc-stat="pool"></span>
       <span class="acc__chev" aria-hidden="true"></span>
     </button>
@@ -2065,7 +2127,7 @@ WALLET</b></div>
     <button class="acc__btn" type="button" aria-expanded="false" aria-controls="p-feed">
       <svg class="acc__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l2.5-7 4.5 14 2.5-7H22"/></svg>
       <span class="acc__n">04</span>
-      <span class="acc__main"><span class="acc__title">Live trades</span><span class="acc__teaser">buys and sells, live</span></span>
+      <span class="acc__main"><span class="acc__title" data-shine>Live trades</span><span class="acc__teaser">buys and sells, live</span></span>
       <span class="acc__stat" data-acc-stat="feed"></span>
       <span class="acc__chev" aria-hidden="true"></span>
     </button>
@@ -3638,8 +3700,12 @@ function themeFlip(){
   btn.addEventListener("click",function(){
     var on=btn.getAttribute("aria-pressed")!=="true";
     paint(on);
+    try{localStorage.setItem("ck_theme",on?"dark":"light")}catch(e){}
     toast(on?"lights out ser":"back to paper");
   });
+  /* dark is the default now; a stored choice still wins */
+  var pref=null;try{pref=localStorage.getItem("ck_theme")}catch(e){}
+  paint(pref?pref==="dark":true);
 }
 
 /* ---------- the silly-solana juice kit (capped, reduced-motion null) ---------- */
@@ -3802,11 +3868,11 @@ function splashEnd(){
   document.documentElement.classList.remove("splashing");
   setTimeout(function(){el.hidden=true},950);
   try{sessionStorage.setItem("ck_seen","1")}catch(e){}
-  /* the ten-second fuse: degen engages itself */
+  /* degen engages itself 30s after the cold open ends */
   setTimeout(function(){
     var b=$("#degenToggle");
     if(b&&b.getAttribute("aria-pressed")!=="true"){b.click();}
-  },5000);
+  },30000);
 }
 
 /* ============================================================
@@ -3849,6 +3915,7 @@ function frameGovernor(){
   requestAnimationFrame(tick);
 }
 function spawnLaugh(x,y,opts){
+  if(document.documentElement.classList.contains("adm-on"))return;
   if(!motionOK)return;
   var host=$("#laughs");if(!host||laughLive>=LAUGH_CAP)return;
   opts=opts||{};
@@ -4411,7 +4478,7 @@ function boot(){
   var sp=$("#splash");
   if(sp&&!seen){splashRun();setTimeout(laughAmbient,motionOK?7200:2800)}
   else{if(sp){sp.hidden=true}splashDone=true;laughAmbient();
-       setTimeout(function(){var b=$("#degenToggle");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()},5000);}
+       setTimeout(function(){var b=$("#degenToggle");if(b&&b.getAttribute("aria-pressed")!=="true")b.click()},30000);}
   reveal();scrollReveals();rotator();belt();header();disclosures();copychips();magnets();swapWire();ticker();
   chartTabs();diceCeremony();xButtons();themeFlip();frogPlay();airdrop();
   waveLedger();mempoolPanel();modalInit();secretInit();accordions();
