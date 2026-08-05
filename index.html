@@ -4630,10 +4630,24 @@ function mpRescue(){
 /* ============================================================
    MODAL · scrim + blur, focus trap, Esc, reduced-motion safe
    ============================================================ */
+/* WAAPI animations with fill:"forwards" outrank inline styles and never expire.
+   modalClose() left an opacity:0 fill on the container, so every open after the
+   first showed an invisible-but-clickable modal. Clear them on both edges. */
+function admClearAnims(m){
+  if(!m||!m.getAnimations)return;
+  try{
+    m.getAnimations().forEach(function(a){a.cancel()});
+    ["\u002Eadm-panel",".adm-glow"].forEach(function(sel){
+      var el=m.querySelector(sel);
+      if(el&&el.getAnimations)el.getAnimations().forEach(function(a){a.cancel()});
+    });
+  }catch(e){}
+}
 var modalPrev=null,modalCur=null;
 function modalOpen(id){
   var m=document.getElementById(id);if(!m)return;
   modalPrev=document.activeElement;modalCur=m;
+  admClearAnims(m);
   m.hidden=false;
   document.documentElement.classList.add("adm-on");
   document.body.style.overflow="hidden";
@@ -4654,7 +4668,7 @@ function modalOpen(id){
 function modalClose(){
   var m=modalCur;if(!m)return;
   var panel=m.querySelector(".adm-panel");
-  var done=function(){m.hidden=true;m.style.opacity="";m.removeAttribute("data-open");
+  var done=function(){admClearAnims(m);m.hidden=true;m.style.opacity="";m.removeAttribute("data-open");
     if(panel){panel.style.opacity="";panel.style.transform=""}
     document.documentElement.classList.remove("adm-on");document.body.style.overflow="";
     if(modalPrev&&modalPrev.focus)modalPrev.focus();modalCur=null};
